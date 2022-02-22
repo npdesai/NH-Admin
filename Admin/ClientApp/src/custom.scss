@@ -1,0 +1,58 @@
+.admin_layout {
+  .ant-layout {
+    background: #ffffff !important;
+  }
+  .ant-layout-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #b6b5b5;
+  }
+  .ant-layout-sider {
+    border-right: 1px solid #b6b5b5;
+    height: calc(100vh - 64px);
+    background: #ffffff;
+  }
+  &_fix_header {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    padding: 0 25px !important;
+    &_logo {
+      float: left;
+      width: 120px;
+      font-size: 30px;
+    }
+  }
+  &_main {
+    margin-top: 64px;
+  }
+  &_content {
+    padding: 25px;
+  }
+}
+
+.user_layout {
+  .ant-layout {
+    background: #ffffff !important;
+  }
+  .ant-layout-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #b6b5b5;
+  }
+  &_fix_header {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    padding: 0 25px !important;
+    &_logo {
+      float: left;
+      width: 120px;
+      font-size: 30px;
+    }
+  }
+  &_main {
+    margin-top: 64px;
+  }
+  &_content {
+    padding: 25px;
+  }
+}

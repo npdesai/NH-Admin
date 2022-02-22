@@ -1,15 +1,15 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Layout } from "./components/Layout";
+import { MainLayout } from "./components/Layout";
 import { AdminRoutes } from "./routes/AdminRoutes";
 import { Routes } from "./routes/Routes";
-import "./custom.css";
+import "./custom.scss";
 
 export default () => (
-  <Layout>
+  <MainLayout>
     <Switch>
       <Route path="/admin*" component={AdminRoutes} />
       <Route exact path="/*" component={Routes} />
     </Switch>
-  </Layout>
+  </MainLayout>
 );
