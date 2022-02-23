@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Home } from "../components/Admin/Home";
+import { Login } from "../components/Admin/login/Login";
 
 interface RouteKey {
   [key: string]: {
@@ -15,6 +16,10 @@ interface IRoute {
 
 export const AdminRoutesConstant: IRoute = {
   AdminPages: {
+    Login: {
+      path: "/admin/login",
+      component: Login,
+    },
     Home: {
       path: "/admin",
       component: Home,

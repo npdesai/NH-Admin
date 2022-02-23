@@ -9,6 +9,7 @@
     "history": "4.10.1",
     "jquery": "^3.5.1",
     "merge": "^2.1.1",
+    "node-sass": "^6.0.1",
     "popper.js": "^1.16.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",
@@ -33,7 +34,6 @@
     "cross-env": "6.0.3",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "nan": "^2.14.1",
-    "node-sass": "^7.0.1",
     "react-scripts": "^4.0.3",
     "typescript": "3.6.4"
   },

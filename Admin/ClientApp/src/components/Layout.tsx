@@ -9,14 +9,14 @@ const { Content } = Layout;
 
 export const MainLayout: FC = ({ children }) => {
   const location = useLocation();
-
+  const isLoginScreen = location.pathname.includes("login");
   return (
     <React.Fragment>
       {location.pathname.includes("admin") ? (
         <Layout className="admin_layout">
-          <TopNavMenu />
-          <Layout className="admin_layout_main">
-            <LeftNavMenu />
+          {isLoginScreen ? "" : <TopNavMenu />}
+          <Layout className={`${isLoginScreen ? "" : "admin_layout_main"}`}>
+            {isLoginScreen ? "" : <LeftNavMenu />}
             <Layout className="admin_layout_content">
               <Content>{children}</Content>
             </Layout>

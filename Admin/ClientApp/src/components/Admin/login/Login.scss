@@ -1,0 +1,18 @@
+.login_container {
+  height: calc(100vh - 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .login_form {
+      padding: 25px 15px;
+    .ant-card-bordered {
+      border-radius: 10px;
+    }
+    h4.ant-typography {
+      margin-bottom: 20px;
+    }
+    &_button {
+      width: 100%;
+    }
+  }
+}
