@@ -10,3 +10,4 @@ node_modules
 api.generated.clients.ts
 package-lock.json
 .DS_Store
+*.csproj.user

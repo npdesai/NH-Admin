@@ -17,7 +17,7 @@ const { Title } = Typography;
 export const Login: FC = () => {
   return (
     <Row justify="space-around" align="middle" className="login_container">
-      <Col xs={24} sm={24} md={8}>
+      <Col xs={24} sm={16} md={8}>
         <Card>
           <Form className="login_form">
             <Row justify="center" align="middle">

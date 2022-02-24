@@ -1,11 +1,17 @@
 using Admin.Common;
 using Admin.Common.Mapper;
+using Admin.Common.Settings;
+using Admin.Repository;
+using Admin.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Admin
 {
@@ -24,14 +30,15 @@ namespace Admin
         {
             services.AddOptions();
             services.Configure<AppSettingsConfig>(Configuration.GetSection("AppSettings"));
-
-            services.AddControllersWithViews();
             services.AddSingleton(Configuration);
-
             services.AddAutoMapper(typeof(Startup), typeof(Mapping));
+            services.RegisterAdminServices();
+            services.RegisterAdminRepositories();
+            services.AddControllersWithViews();
+            services.AddDbContext<AdminDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             // Register the Swagger services
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(s => { s.Title = "NH API"; });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -41,8 +48,17 @@ namespace Admin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AdminDBContext dbContext, ILogger<Startup> logger)
         {
+            try
+            {
+                dbContext.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

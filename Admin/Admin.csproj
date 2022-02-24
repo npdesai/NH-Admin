@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Admin.Common\Admin.Common.csproj" />
+    <ProjectReference Include="..\Admin.Services\Admin.Services.csproj" />
   </ItemGroup>
 
   <Target Name="NSwag" BeforeTargets="AfterBuild">
