@@ -1,4 +1,4 @@
-import { accessCookie, setCookie } from "./cookie";
+import { accessCookie, cookieName, setCookie } from "./cookie";
 
 const getExpireDate = () => {
   const now = new Date();
@@ -7,11 +7,11 @@ const getExpireDate = () => {
 
 export function saveToken(token: string) {
   const expireDate = getExpireDate();
-  setCookie("ctoken", token, expireDate);
+  setCookie(cookieName, token, expireDate);
 }
 
 export function getToken() {
-  return accessCookie("ctoken");
+  return accessCookie(cookieName);
 }
 
 export type TokenDecoded = {

@@ -1,4 +1,4 @@
-import { accessCookie } from "../common/cookie";
+import { accessCookie, cookieName } from "../common/cookie";
 
 const fetchSendCookieAsAuth =
   (cookieName: string, headerName: string) =>
@@ -15,5 +15,5 @@ const fetchSendCookieAsAuth =
   };
 
 export const httpWithTokenInHeader = {
-  fetch: fetchSendCookieAsAuth("ctoken", "Authorization"),
+  fetch: fetchSendCookieAsAuth(cookieName, "Authorization"),
 };

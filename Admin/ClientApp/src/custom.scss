@@ -21,6 +21,16 @@
       width: 120px;
       font-size: 30px;
     }
+    &_menu {
+      border-bottom: none !important;
+      justify-content: end;
+      .ant-menu-submenu {
+        padding-right: 0 !important;
+        &::after {
+          right: 0 !important;
+        }
+      }
+    }
   }
   &_main {
     margin-top: 64px;

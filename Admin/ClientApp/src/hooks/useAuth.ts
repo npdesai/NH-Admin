@@ -1,8 +1,8 @@
-import { accessCookie } from "../common/cookie";
+import { accessCookie, cookieName } from "../common/cookie";
 
 export const useAuth = () => {
   let isLogin = false;
-  const cookieValue = accessCookie("ctoken");
+  const cookieValue = accessCookie(cookieName);
   if (cookieValue) {
     isLogin = true;
   } else {
