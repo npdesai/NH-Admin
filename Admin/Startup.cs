@@ -79,6 +79,7 @@ namespace Admin
             app.UseSwaggerUi3();
 
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
