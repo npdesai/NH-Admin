@@ -1,0 +1,9 @@
+@import "../../../../styles/mixin";
+
+.carousellist {
+    &_pagetitle {
+    }
+    &_action {
+        text-align: end;
+    }
+}

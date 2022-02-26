@@ -1,17 +1,26 @@
 import { Layout, Menu } from "antd";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router";
+import { navigate } from "../../../common/navigation";
+import { AdminRoutesConstant } from "../../../routes/AdminRoutes";
 
 const { Sider } = Layout;
 
 export const LeftNavMenu: FC = () => {
+  const location = useLocation();
+  const history = useHistory();
+
   return (
     <Sider width={200} className="left_menu">
-      <Menu mode="inline">
-        <Menu.Item key="1">Menu1</Menu.Item>
-        <Menu.Item key="2">Menu2</Menu.Item>
-        <Menu.Item key="3">Menu3</Menu.Item>
-        <Menu.Item key="4">Menu4</Menu.Item>
-        <Menu.Item key="5">Menu5</Menu.Item>
+      <Menu mode="inline" defaultSelectedKeys={[location.pathname.split("/")[2]]}>
+        <Menu.Item
+          key="carousel"
+          onClick={() =>
+            navigate(history, AdminRoutesConstant.AdminPages.CarouselList.path)
+          }
+        >
+          Carousel
+        </Menu.Item>
       </Menu>
     </Sider>
   );

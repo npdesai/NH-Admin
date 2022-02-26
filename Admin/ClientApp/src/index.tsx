@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
+import "antd/dist/antd.css";
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import "antd/dist/antd.css";
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;

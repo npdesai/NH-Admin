@@ -1,0 +1,79 @@
+@import "./color";
+
+@mixin pageTitle {
+    h3.ant-typography {
+        color: $pageTitleColor;
+    }
+    h4.ant-typography {
+        color: $pageTitleColor;
+    }
+}
+
+@mixin button {
+    .ant-btn {
+        border-color: $buttonBorderColor;
+        background-color: $buttonBGColor;
+        &:hover {
+            background-color: $buttonHoverColor;
+            border-color: $buttonBorderColor;
+            color: $buttonBorderColor;
+        }
+    }
+}
+
+@mixin input {
+    .ant-input {
+        &:hover {
+            border-color: $inputBorderColor;
+        }
+        &:focus {
+            border-color: $inputBorderColor;
+            box-shadow: 0 0 0 2px $inputFocusShadow;
+        }
+    }
+    .ant-input-affix-wrapper {
+        &:not(.ant-input-affix-wrapper-disabled) {
+            &:hover {
+                border-color: $inputBorderColor;
+            }
+        }
+        &:focus {
+            border-color: $inputBorderColor;
+            box-shadow: 0 0 0 2px $inputFocusShadow;
+        }
+        .ant-input-prefix {
+            .anticon {
+                color: $inputBorderColor;
+            }
+        }
+    }
+    .ant-input-affix-wrapper-focused {
+        border-color: $inputBorderColor;
+        box-shadow: 0 0 0 2px $inputFocusShadow;
+    }
+    .ant-form-item-has-error {
+        .ant-input-prefix {
+            .anticon {
+                color: $inputErrorPrefixIcon;
+            }
+        }
+    }
+}
+
+@mixin uploadIcon {
+    .ant-upload.ant-upload-drag {
+        &:not(.ant-upload-disabled) {
+            &:hover {
+                border-color: $uploadBorderColor;
+            }
+        }
+        p.ant-upload-text {
+            font-size: 14px;
+        }
+        p.ant-upload-drag-icon {
+            .anticon {
+                color: $uploadIconColor;
+            }
+        }
+    }
+}
