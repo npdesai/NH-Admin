@@ -9,6 +9,7 @@ namespace Admin.Services
         public static void RegisterAdminServices(this IServiceCollection services)
         {
             services.AddScoped<IAdminUserService, AdminUserService>();
+            services.AddScoped<ICarouselService, CarouselService>();
         }
     }
 }

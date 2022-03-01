@@ -9,6 +9,7 @@ namespace Admin.Repository
         public static void RegisterAdminRepositories(this IServiceCollection services)
         {
             services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+            services.AddScoped<ICarouselRepository, CarouselRepository>();
         }
     }
 }

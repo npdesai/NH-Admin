@@ -77,3 +77,49 @@
         }
     }
 }
+
+@mixin leftMenu {
+    .ant-menu-inline.ant-menu-root {
+        .ant-menu-item {
+            > .ant-menu-title-content {
+                color: $leftMenuTextColor;
+            }
+        }
+    }
+    .ant-menu {
+        &:not(.ant-menu-horizontal) {
+            .ant-menu-item-selected {
+                background-color: $leftMenuHoverBGColor;
+                .anticon {
+                    color: $leftMenuTextColor;
+                }
+                .ant-menu-title-content {
+                    color: $leftMenuTextColor;
+                }
+            }
+        }
+    }
+    .ant-menu-inline {
+        .ant-menu-item {
+            &::after {
+                border-right: 3px solid $leftMenuTextColor;
+            }
+        }
+    }
+    .ant-menu-light {
+        .ant-menu-item {
+            &:hover {
+                color: $leftMenuHoverTextColor;
+            }
+            .anticon {
+                color: $leftMenuTextColor;
+            }
+        }
+    }
+
+    .ant-layout-sider-trigger {
+        border-right: 1px solid #b6b5b5;
+        color: $leftMenuTextColor;
+        background-color: $leftMenuHoverBGColor;
+    }
+}

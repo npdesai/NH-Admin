@@ -19,6 +19,7 @@ namespace Admin.Repository
         }
 
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<Carousel> Carousels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

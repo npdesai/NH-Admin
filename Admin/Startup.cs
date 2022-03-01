@@ -1,6 +1,6 @@
 using Admin.Common;
-using Admin.Common.Mapper;
 using Admin.Common.Settings;
+using Admin.Models.Mapper;
 using Admin.Repository;
 using Admin.Services;
 using Microsoft.AspNetCore.Builder;

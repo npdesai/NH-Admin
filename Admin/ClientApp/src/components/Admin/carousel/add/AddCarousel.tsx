@@ -2,6 +2,7 @@ import { InboxOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import {
   Button,
   Card,
+  Checkbox,
   Col,
   Form,
   Input,
@@ -12,7 +13,10 @@ import {
 } from "antd";
 import React, { FC, useState } from "react";
 import { useHistory } from "react-router";
+import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
+import { CarouselClient } from "../../../../clients/api.generated.clients";
 import { navigate } from "../../../../common/navigation";
+import { validateImage } from "../../../../hooks/validator";
 import { AdminRoutesConstant } from "../../../../routes/AdminRoutes";
 import "./AddCarousel.scss";
 
@@ -21,26 +25,6 @@ const { Title } = Typography;
 
 export const AddCarousel: FC = () => {
   const history = useHistory();
-
-  const props = {
-    name: "file",
-    multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange(info: { file: { name?: any; status?: any }; fileList: any }) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e: { dataTransfer: { files: any } }) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
-  };
 
   const formItemLayout = {
     labelCol: {
@@ -52,6 +36,7 @@ export const AddCarousel: FC = () => {
       sm: { span: 19 },
     },
   };
+
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,11 +44,35 @@ export const AddCarousel: FC = () => {
     setIsLoading(true);
     form
       .validateFields()
-      .then(async (values) => {
-        console.log("values", values);
+      .then((values) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(values.image.fileList[0].originFileObj);
+        let base64String: string = "";
+        reader.onloadend = async function (e: any) {
+          base64String = e.target.result;
+          await new CarouselClient("", httpWithTokenInHeader)
+            .addCarousel({
+              title: values.title,
+              description: values.description,
+              image: base64String,
+              isActive: values.active,
+            })
+            .then((res) => {
+              navigate(
+                history,
+                AdminRoutesConstant.AdminPages.CarouselList.path
+              );
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              setIsLoading(false);
+              if (!err.success) {
+                message.error(err.message, 5);
+              }
+            });
+        };
       })
       .catch((info) => {
-        // console.log(info);
         setIsLoading(false);
         console.log("Validate Failed:", info);
       });
@@ -86,7 +95,10 @@ export const AddCarousel: FC = () => {
             onClick={() =>
               navigate(
                 history,
-                AdminRoutesConstant.AdminPages.CarouselList.path)}>
+                AdminRoutesConstant.AdminPages.CarouselList.path
+              )
+            }
+          >
             Carousel List
           </Button>
         </Col>
@@ -94,7 +106,14 @@ export const AddCarousel: FC = () => {
       <Row>
         <Col xs={24} md={12}>
           <Card>
-            <Form {...formItemLayout} form={form} onFinish={onFinish}>
+            <Form
+              {...formItemLayout}
+              form={form}
+              onFinish={onFinish}
+              initialValues={{
+                active: true,
+              }}
+            >
               <Form.Item
                 label="Title"
                 name="title"
@@ -115,11 +134,27 @@ export const AddCarousel: FC = () => {
                 label="Image"
                 name="image"
                 rules={[
-                  { required: true, message: "Please choose your image" },
+                  {
+                    required: true,
+                    message: "Please choose your image",
+                    validator: validateImage,
+                  },
                 ]}
               >
-                <Form.Item name="image" rules={[{ required: false }]} noStyle>
-                  <Dragger {...props} name="imagefile">
+                <Form.Item
+                  name="image"
+                  rules={[{ required: false }]}
+                  noStyle
+                  valuePropName="file"
+                >
+                  <Dragger
+                    multiple={false}
+                    beforeUpload={() => {
+                      return false;
+                    }}
+                    maxCount={1}
+                    accept="image/*"
+                  >
                     <p className="ant-upload-drag-icon">
                       <InboxOutlined />
                     </p>
@@ -129,13 +164,18 @@ export const AddCarousel: FC = () => {
                   </Dragger>
                 </Form.Item>
               </Form.Item>
+              <Form.Item label="Active" name="active" valuePropName="checked">
+                <Checkbox />
+              </Form.Item>
               <Form.Item wrapperCol={{ span: 13, offset: 5 }}>
                 <Button
                   type="primary"
                   htmlType="submit"
                   className="addcarousel_savebtn"
+                  loading={isLoading}
+                  disabled={isLoading}
                 >
-                  Save
+                  {isLoading ? "Saving" : "Save"}
                 </Button>
               </Form.Item>
             </Form>

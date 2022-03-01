@@ -1,10 +1,12 @@
 @import "./styles/mixin";
-@include pageTitle;
-@include input;
-@include button;
-@include uploadIcon;
 
 .admin_layout {
+  @include leftMenu;
+  @include pageTitle;
+  @include input;
+  @include button;
+  @include uploadIcon;
+  
   .ant-layout {
     background: #ffffff !important;
   }

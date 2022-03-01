@@ -4,7 +4,6 @@ import React, { FC, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { navigate } from "../../../common/navigation";
 import { AdminRoutesConstant } from "../../../routes/AdminRoutes";
-import "./LeftNavMenu.scss";
 
 const { Sider } = Layout;
 
