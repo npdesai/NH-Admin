@@ -1,11 +1,28 @@
 @import "../../../../styles/mixin";
 
 .addcarousel {
+    .ant-card-body {
+        @media only screen and (device-width: 320px) and (device-height: 568px) {
+            padding: 15px;
+        }
+    }
     &_pagetitle {
+        @media only screen and (device-width: 320px) and (device-height: 568px) {
+            font-size: 20px;
+        }
     }
     &_action {
         text-align: end;
+        button {
+            @media only screen and (device-width: 320px) and (device-height: 568px) {
+                width: 100%;
+            }
+        }
+    }
+    &_content {
+        margin-top: 20px;
     }
     &_savebtn {
+        min-width: 200px;
     }
 }

@@ -18,7 +18,7 @@ export const LeftNavMenu: FC = () => {
   };
 
   return (
-    <Sider collapsible collapsed={isCollapsed} onCollapse={onCollapse} theme="light">
+    <Sider breakpoint="md" collapsedWidth="50" collapsible collapsed={isCollapsed} onCollapse={onCollapse} theme="light">
       <Menu
         mode="inline"
         defaultSelectedKeys={[location.pathname.split("/")[2]]}

@@ -4,6 +4,7 @@ import {
   Card,
   Checkbox,
   Col,
+  Divider,
   Form,
   Input,
   message,
@@ -25,17 +26,6 @@ const { Title } = Typography;
 
 export const AddCarousel: FC = () => {
   const history = useHistory();
-
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 5 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 19 },
-    },
-  };
 
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
@@ -79,19 +69,22 @@ export const AddCarousel: FC = () => {
   };
   return (
     <div className="addcarousel">
-      <Row justify="space-between" align="middle">
-        <Col xs={12}>
+      <Row gutter={[0, { xs: 16 }]} justify="space-between" align="middle">
+        <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 1 }}>
           <Title level={3} className="addcarousel_pagetitle">
             Add Carousel
           </Title>
         </Col>
-        <Col xs={12} className="addcarousel_action">
+        <Col
+          xs={{ span: 24, order: 1 }}
+          md={{ span: 12, order: 2 }}
+          className="addcarousel_action"
+        >
           <Button
             type="primary"
             className="btn"
-            shape="round"
             icon={<UnorderedListOutlined />}
-            size="large"
+            size="middle"
             onClick={() =>
               navigate(
                 history,
@@ -103,81 +96,102 @@ export const AddCarousel: FC = () => {
           </Button>
         </Col>
       </Row>
-      <Row>
-        <Col xs={24} md={12}>
+      <Row className="addcarousel_content">
+        <Col xs={24}>
           <Card>
             <Form
-              {...formItemLayout}
               form={form}
               onFinish={onFinish}
+              layout="vertical"
               initialValues={{
                 active: true,
               }}
             >
-              <Form.Item
-                label="Title"
-                name="title"
-                rules={[{ required: true, message: "Please input your Title" }]}
-              >
-                <Input placeholder="Title" />
-              </Form.Item>
-              <Form.Item
-                label="Description"
-                name="description"
-                rules={[
-                  { required: true, message: "Please input your Description" },
-                ]}
-              >
-                <Input.TextArea placeholder="Description" />
-              </Form.Item>
-              <Form.Item
-                label="Image"
-                name="image"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please choose your image",
-                    validator: validateImage,
-                  },
-                ]}
-              >
-                <Form.Item
-                  name="image"
-                  rules={[{ required: false }]}
-                  noStyle
-                  valuePropName="file"
-                >
-                  <Dragger
-                    multiple={false}
-                    beforeUpload={() => {
-                      return false;
-                    }}
-                    maxCount={1}
-                    accept="image/*"
+              <Row gutter={[16, 16]}>
+                <Col xs={{ span: 24, order: 1 }} md={{ span: 12, order: 1 }}>
+                  <Form.Item
+                    label="Title"
+                    name="title"
+                    rules={[
+                      { required: true, message: "Please input your Title" },
+                    ]}
                   >
-                    <p className="ant-upload-drag-icon">
-                      <InboxOutlined />
-                    </p>
-                    <p className="ant-upload-text">
-                      Click or drag file to this area to upload
-                    </p>
-                  </Dragger>
-                </Form.Item>
-              </Form.Item>
-              <Form.Item label="Active" name="active" valuePropName="checked">
-                <Checkbox />
-              </Form.Item>
-              <Form.Item wrapperCol={{ span: 13, offset: 5 }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="addcarousel_savebtn"
-                  loading={isLoading}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Saving" : "Save"}
-                </Button>
-              </Form.Item>
+                    <Input placeholder="Title" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Description"
+                    name="description"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your Description",
+                      },
+                    ]}
+                  >
+                    <Input.TextArea placeholder="Description" />
+                  </Form.Item>
+                </Col>
+                <Col xs={{ span: 24, order: 3 }} md={{ span: 12, order: 3 }}>
+                  <Form.Item
+                    label="Active"
+                    name="active"
+                    valuePropName="checked"
+                  >
+                    <Checkbox />
+                  </Form.Item>
+                </Col>
+                <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 2 }}>
+                  <Form.Item
+                    label="Image"
+                    name="image"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please choose your image",
+                        validator: validateImage,
+                      },
+                    ]}
+                  >
+                    <Form.Item
+                      name="image"
+                      rules={[{ required: false }]}
+                      noStyle
+                      valuePropName="file"
+                    >
+                      <Dragger
+                        multiple={false}
+                        beforeUpload={() => {
+                          return false;
+                        }}
+                        maxCount={1}
+                        accept="image/*"
+                      >
+                        <p className="ant-upload-drag-icon">
+                          <InboxOutlined />
+                        </p>
+                        <p className="ant-upload-text">
+                          Click or drag file to this area to upload
+                        </p>
+                      </Dragger>
+                    </Form.Item>
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row justify="center" align="middle">
+                <Col>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      className="addcarousel_savebtn"
+                      loading={isLoading}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Saving" : "Save"}
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
             </Form>
           </Card>
         </Col>

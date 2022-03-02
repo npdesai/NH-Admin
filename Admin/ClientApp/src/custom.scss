@@ -6,7 +6,8 @@
   @include input;
   @include button;
   @include uploadIcon;
-  
+  @include checkbox;
+
   .ant-layout {
     background: #ffffff !important;
   }
@@ -45,6 +46,9 @@
   }
   &_content {
     padding: 25px;
+    @media only screen and (device-width: 320px) and (device-height: 568px) {
+      padding: 15px;
+    }
   }
 }
 
