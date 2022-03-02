@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { AddCarousel } from "../components/Admin/carousel/add/AddCarousel";
+import { EditCarousel } from "../components/Admin/carousel/edit/EditCarousel";
 import { CarouselList } from "../components/Admin/carousel/list/CarouselList";
 import { Home } from "../components/Admin/Home";
 import { Login } from "../components/Admin/login/Login";
@@ -37,6 +38,10 @@ export const AdminRoutesConstant: IRoute = {
     CarouselList: {
       path: "/admin/carousel/list",
       component: <CarouselList />,
+    },
+    EditCarousel: {
+      path: "/admin/carousel/edit/:id",
+      component: <EditCarousel />,
     },
   },
 };

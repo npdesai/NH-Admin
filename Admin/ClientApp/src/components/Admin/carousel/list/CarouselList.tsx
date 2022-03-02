@@ -1,14 +1,15 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Col, Row, Table, Typography } from "antd";
+import { EditOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Col, Row, Table, Typography } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
 import { CarouselClient } from "../../../../clients/api.generated.clients";
 import { navigate } from "../../../../common/navigation";
 import { AdminRoutesConstant } from "../../../../routes/AdminRoutes";
 import "./CarouselList.scss";
 
 const { Title } = Typography;
-const onchange = () => {};
+
 export const CarouselList: FC = () => {
   const history = useHistory();
   const [carouselData, setCarouselData] = useState([]);
@@ -34,6 +35,26 @@ export const CarouselList: FC = () => {
         console.log(err);
       });
   }, []);
+
+  const handleCheckboxChange = async (checked: any, rowIndex: any) => {
+    const newCheckboxState = [...carouselData];
+    newCheckboxState[rowIndex].isActive = checked;
+    setCarouselData(newCheckboxState);
+    await new CarouselClient("", httpWithTokenInHeader)
+      .updateCarouselActiveStatus(newCheckboxState[rowIndex].key, checked)
+      .then((res) => {})
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const edit = (id: any) => {
+    navigate(
+      history,
+      AdminRoutesConstant.AdminPages.EditCarousel.path.replace(":id", id)
+    );
+  };
+
   const carouselTableColumns = [
     {
       title: "Title",
@@ -54,15 +75,28 @@ export const CarouselList: FC = () => {
       title: "IsActive",
       dataIndex: "isActive",
       width: "10%",
-      render: (_Checkbox: any) => (
-        <input type="checkbox" onChange={onchange} checked={_Checkbox} />
+      editable: true,
+      align: "center",
+      render: (value: any, record: any, rowIndex: any) => (
+        <Checkbox
+          checked={record.isActive}
+          onChange={() => handleCheckboxChange(!value, rowIndex)}
+        />
       ),
     },
     {
       title: "Action",
       dataIndex: "action",
       width: "10%",
-      render: (_button: any) => <Button>Edit</Button>,
+      align: "center",
+      render: (text: any, record: any) => (
+        <Button
+          type="primary"
+          size="small"
+          icon={<EditOutlined />}
+          onClick={() => edit(record.key)}
+        ></Button>
+      ),
     },
   ];
   return (
@@ -76,9 +110,8 @@ export const CarouselList: FC = () => {
         <Col xs={12} className="carousellist_action">
           <Button
             type="primary"
-            shape="round"
             icon={<PlusCircleOutlined />}
-            size="large"
+            size="middle"
             className="btn"
             onClick={() =>
               navigate(history, AdminRoutesConstant.AdminPages.AddCarousel.path)
@@ -90,7 +123,11 @@ export const CarouselList: FC = () => {
       </Row>
       <Row className="carousellist_table">
         <Col xs={24}>
-          <Table dataSource={carouselData} columns={carouselTableColumns} />
+          <Table
+            size="small"
+            dataSource={carouselData}
+            columns={carouselTableColumns}
+          />
         </Col>
       </Row>
     </div>

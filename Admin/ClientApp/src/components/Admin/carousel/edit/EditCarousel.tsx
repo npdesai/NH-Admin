@@ -4,7 +4,6 @@ import {
   Card,
   Checkbox,
   Col,
-  Divider,
   Form,
   Input,
   message,
@@ -12,73 +11,98 @@ import {
   Typography,
   Upload,
 } from "antd";
-import React, { FC, useState } from "react";
-import { useHistory } from "react-router";
+import React, { FC, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
 import { CarouselClient } from "../../../../clients/api.generated.clients";
 import { navigate } from "../../../../common/navigation";
 import { validateImage } from "../../../../hooks/validator";
 import { AdminRoutesConstant } from "../../../../routes/AdminRoutes";
-import "./AddCarousel.scss";
+import "./EditCarousel.scss";
 
 const { Dragger } = Upload;
 const { Title } = Typography;
 
-export const AddCarousel: FC = () => {
+export const EditCarousel: FC = () => {
   const history = useHistory();
-
+  const params = useParams();
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    new CarouselClient("", httpWithTokenInHeader)
+      .getCarouselById(params.id)
+      .then((result) => {
+        if (result.success) {
+          form.setFieldsValue({
+            title: result.data && result.data.title,
+            description: result.data && result.data.description,
+            image: result.data && result.data.image,
+            active: result.data && result.data.isActive,
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [params.id != undefined]);
 
   const onFinish = () => {
     setIsLoading(true);
     form
       .validateFields()
       .then((values) => {
-        let reader = new FileReader();
-        reader.readAsDataURL(values.image.fileList[0].originFileObj);
-        let base64String: string = "";
-        reader.onloadend = async function (e: any) {
-          base64String = e.target.result;
-          await new CarouselClient("", httpWithTokenInHeader)
-            .addCarousel({
-              title: values.title,
-              description: values.description,
-              image: base64String,
-              isActive: values.active,
-            })
-            .then((res) => {
-              navigate(
-                history,
-                AdminRoutesConstant.AdminPages.CarouselList.path
-              );
-              setIsLoading(false);
-            })
-            .catch((err) => {
-              setIsLoading(false);
-              if (!err.success) {
-                message.error(err.message, 5);
-              }
-            });
-        };
+        if (values.image) {
+          let reader = new FileReader();
+          reader.readAsDataURL(values.image.fileList[0].originFileObj);
+          let base64String: string = "";
+          reader.onloadend = async function (e: any) {
+            base64String = e.target.result;
+            updateCarousel(values, base64String);
+          };
+        } else {
+          updateCarousel(values, undefined);
+        }
       })
       .catch((info) => {
         setIsLoading(false);
         console.log("Validate Failed:", info);
       });
   };
+
+  const updateCarousel = async (values: any, base64String: any) => {
+    await new CarouselClient("", httpWithTokenInHeader)
+      .updateCarousel({
+        id: params.id,
+        title: values.title,
+        description: values.description,
+        image: base64String,
+        isActive: values.active,
+      })
+      .then((res) => {
+        navigate(history, AdminRoutesConstant.AdminPages.CarouselList.path);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        if (!err.success) {
+          message.error(err.message, 5);
+        }
+      });
+  };
+
   return (
-    <div className="addcarousel">
+    <div className="editcarousel">
       <Row gutter={[0, { xs: 16 }]} justify="space-between" align="middle">
         <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 1 }}>
-          <Title level={3} className="addcarousel_pagetitle">
-            Add Carousel
+          <Title level={3} className="editcarousel_pagetitle">
+            Edit Carousel
           </Title>
         </Col>
         <Col
           xs={{ span: 24, order: 1 }}
           md={{ span: 12, order: 2 }}
-          className="addcarousel_action"
+          className="editcarousel_action"
         >
           <Button
             type="primary"
@@ -96,7 +120,7 @@ export const AddCarousel: FC = () => {
           </Button>
         </Col>
       </Row>
-      <Row className="addcarousel_content">
+      <Row className="editcarousel_content">
         <Col xs={24}>
           <Card>
             <Form
@@ -182,7 +206,7 @@ export const AddCarousel: FC = () => {
                     <Button
                       type="primary"
                       htmlType="submit"
-                      className="addcarousel_savebtn"
+                      className="editcarousel_savebtn"
                       loading={isLoading}
                       disabled={isLoading}
                     >
