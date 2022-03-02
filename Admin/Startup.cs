@@ -11,7 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 using System;
+using System.Linq;
 
 namespace Admin
 {
@@ -38,7 +41,18 @@ namespace Admin
             services.AddDbContext<AdminDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             // Register the Swagger services
-            services.AddSwaggerDocument(s => { s.Title = "NH API"; });
+            services.AddSwaggerDocument(s =>
+            {
+                s.Title = "NH API";
+                s.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                {
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Type into the textbox: Bearer {your JWT token}."
+                });
+                s.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

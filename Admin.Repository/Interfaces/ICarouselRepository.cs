@@ -1,4 +1,5 @@
 ﻿using Admin.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,8 @@ namespace Admin.Repository.Interfaces
     {
         Task<bool> AddCarousel(Carousel carousel);
         Task<List<Carousel>> GetCarousels();
+        Task<bool> UpdateCarouselActiveStatus(Carousel carousel);
+        Task<Carousel> GetCarouselById(Guid id);
+        Task<bool> UpdateCarousel(Carousel carousel);
     }
 }

@@ -34,9 +34,46 @@ namespace Admin.Repository.Repositories
             }
         }
 
+        public async Task<bool> UpdateCarousel(Carousel carousel)
+        {
+            try
+            {
+                carousel.UpdatedAt = DateTime.Now;
+                _dbContext.Entry(carousel).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> UpdateCarouselActiveStatus(Carousel carousel)
+        {
+            try
+            {
+                carousel.UpdatedAt = DateTime.Now;
+                _dbContext.Entry(carousel).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<Carousel>> GetCarousels()
         {
             return await _dbContext.Carousels.ToListAsync();
+        }
+
+        public async Task<Carousel> GetCarouselById(Guid id)
+        {
+            return await _dbContext.Carousels.FirstOrDefaultAsync(c => c.Id == id);
         }
     }
 }
