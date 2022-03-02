@@ -1,9 +1,17 @@
 @import "../../../../styles/mixin";
 
 .carousellist {
-    &_pagetitle {
+  &_pagetitle {
+  }
+  &_action {
+    text-align: end;
+  }
+  &_table {
+    margin: 30px;
+    .ant-table-thead > tr > th,
+    .ant-table-tbody > tr > td {
+      padding: 7px 9px !important;
+      word-break: break-all;
     }
-    &_action {
-        text-align: end;
-    }
+  }
 }
