@@ -10,13 +10,13 @@ import {
   Row,
   Typography,
   Upload,
+  Image,
 } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
 import { CarouselClient } from "../../../../clients/api.generated.clients";
 import { navigate } from "../../../../common/navigation";
-import { validateImage } from "../../../../hooks/validator";
 import { AdminRoutesConstant } from "../../../../routes/AdminRoutes";
 import "./EditCarousel.scss";
 
@@ -28,12 +28,18 @@ export const EditCarousel: FC = () => {
   const params = useParams();
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const [originalImage, setOriginalImage] = useState<string | undefined>(
+    undefined
+  );
+  const [image, setImage] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     new CarouselClient("", httpWithTokenInHeader)
       .getCarouselById(params.id)
       .then((result) => {
         if (result.success) {
+          setImage(result.data && result.data.image);
+          setOriginalImage(result.data && result.data.image);
           form.setFieldsValue({
             title: result.data && result.data.title,
             description: result.data && result.data.description,
@@ -47,19 +53,35 @@ export const EditCarousel: FC = () => {
       });
   }, [params.id != undefined]);
 
+  const convertImageToBase64 = (value: any) => {
+    if (value.fileList.length > 0) {
+      let reader = new FileReader();
+      reader.readAsDataURL(value.fileList[0].originFileObj);
+      let base64String: string = "";
+      reader.onloadend = async function (e: any) {
+        base64String = e.target.result;
+        setImage(base64String);
+      };
+    }
+  };
+
   const onFinish = () => {
     setIsLoading(true);
     form
       .validateFields()
       .then((values) => {
         if (values.image) {
-          let reader = new FileReader();
-          reader.readAsDataURL(values.image.fileList[0].originFileObj);
-          let base64String: string = "";
-          reader.onloadend = async function (e: any) {
-            base64String = e.target.result;
-            updateCarousel(values, base64String);
-          };
+          console.log(values);
+          if (values.image.fileList) {
+            if (values.image.fileList[0].type.match("image.*")) {
+              updateCarousel(values, image);
+            } else {
+              setIsLoading(false);
+              message.error(`Please choose only image`);
+            }
+          } else {
+            updateCarousel(values, image);
+          }
         } else {
           updateCarousel(values, undefined);
         }
@@ -171,7 +193,6 @@ export const EditCarousel: FC = () => {
                     rules={[
                       {
                         required: true,
-                        validator: validateImage,
                       },
                     ]}
                   >
@@ -182,19 +203,32 @@ export const EditCarousel: FC = () => {
                       valuePropName="file"
                     >
                       <Dragger
+                        onChange={convertImageToBase64}
                         multiple={false}
-                        beforeUpload={() => {
+                        beforeUpload={(file) => {
+                          if (!file.type.match("image.*")) {
+                            message.error(`Please choose only image`);
+                          }
                           return false;
                         }}
                         maxCount={1}
                         accept="image/*"
+                        onRemove={() => {
+                          setImage(originalImage);
+                        }}
                       >
-                        <p className="ant-upload-drag-icon">
-                          <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">
-                          Click or drag file to this area to upload
-                        </p>
+                        {!image ? (
+                          <>
+                            <p className="ant-upload-drag-icon">
+                              <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">
+                              Click or drag file to this area to upload
+                            </p>
+                          </>
+                        ) : (
+                          <Image preview={{ visible: false }} src={image} />
+                        )}
                       </Dragger>
                     </Form.Item>
                   </Form.Item>

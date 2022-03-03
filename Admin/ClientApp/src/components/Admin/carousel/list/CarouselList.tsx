@@ -1,5 +1,5 @@
 import { EditOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Row, Table, Typography } from "antd";
+import { Button, Checkbox, Col, Row, Table, Typography, Image } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
@@ -63,13 +63,14 @@ export const CarouselList: FC = () => {
     },
     {
       title: "Description",
-      dataIndex: "description",
+      dataIndex: "description"
     },
     {
       title: "Image",
       dataIndex: "image",
-      width: "20%",
-      render: (_image: any) => <img height={40} src={_image} />,
+      width: "10%",
+      align: "center",
+      render: (_image: any) => <Image src={_image} preview={{ src: _image }} />,
     },
     {
       title: "IsActive",
