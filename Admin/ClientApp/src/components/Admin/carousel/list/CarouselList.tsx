@@ -54,7 +54,6 @@ export const CarouselList: FC = () => {
       AdminRoutesConstant.AdminPages.EditCarousel.path.replace(":id", id)
     );
   };
-
   const carouselTableColumns = [
     {
       title: "Title",
@@ -70,7 +69,7 @@ export const CarouselList: FC = () => {
       dataIndex: "image",
       width: "10%",
       align: "center",
-      render: (_image: any) => <Image src={_image} preview={{ src: _image }} />,
+      render: (_image: any) => <Image src={_image} preview={{ src: _image }} />, 
     },
     {
       title: "IsActive",
@@ -124,11 +123,7 @@ export const CarouselList: FC = () => {
       </Row>
       <Row className="carousellist_table">
         <Col xs={24}>
-          <Table
-            size="small"
-            dataSource={carouselData}
-            columns={carouselTableColumns}
-          />
+          <Table scroll={{ y: 280 }} dataSource={carouselData} columns={carouselTableColumns} />
         </Col>
       </Row>
     </div>
