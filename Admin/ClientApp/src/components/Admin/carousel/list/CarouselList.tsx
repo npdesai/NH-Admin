@@ -13,6 +13,7 @@ const { Title } = Typography;
 export const CarouselList: FC = () => {
   const history = useHistory();
   const [carouselData, setCarouselData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     new CarouselClient()
@@ -30,8 +31,10 @@ export const CarouselList: FC = () => {
             });
           });
         setCarouselData(carouselTableData);
+        setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
       });
   }, []);
@@ -62,12 +65,13 @@ export const CarouselList: FC = () => {
     },
     {
       title: "Description",
-      dataIndex: "description"
+      dataIndex: "description",
+      ellipsis: true
     },
     {
       title: "Image",
       dataIndex: "image",
-      width: "10%",
+      width: "15%",
       align: "center",
       render: (_image: any) => <Image src={_image} preview={{ src: _image }} />, 
     },
@@ -123,7 +127,7 @@ export const CarouselList: FC = () => {
       </Row>
       <Row className="carousellist_table">
         <Col xs={24}>
-          <Table scroll={{ y: 280 }} dataSource={carouselData} columns={carouselTableColumns} />
+          <Table dataSource={carouselData} columns={carouselTableColumns} loading={isLoading} />
         </Col>
       </Row>
     </div>

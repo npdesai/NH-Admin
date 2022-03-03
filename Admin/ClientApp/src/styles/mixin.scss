@@ -1,5 +1,11 @@
 @import "./color";
 
+@mixin spinner {
+    .ant-spin-dot-item {
+        background-color: $spinnerBGColor;
+    }
+}
+
 @mixin pageTitle {
     h3.ant-typography {
         color: $pageTitleColor;
