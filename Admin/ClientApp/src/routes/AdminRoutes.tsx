@@ -5,6 +5,8 @@ import { EditCarousel } from "../components/Admin/carousel/edit/EditCarousel";
 import { CarouselList } from "../components/Admin/carousel/list/CarouselList";
 import { Home } from "../components/Admin/Home";
 import { Login } from "../components/Admin/login/Login";
+import { AddTeam } from "../components/Admin/team/add/AddTeam";
+import { TeamList } from "../components/Admin/team/TeamList";
 import { useAuth } from "../hooks/useAuth";
 
 interface RouteKey {
@@ -43,6 +45,15 @@ export const AdminRoutesConstant: IRoute = {
       path: "/admin/carousel/edit/:id",
       component: <EditCarousel />,
     },
+    TeamList: {
+      path: "/admin/teamlist",
+      component: <TeamList />,
+    },
+    AddTeam: {
+      path: "/admin/teamlist/addteam",
+      component: <AddTeam />,
+    },
+    
   },
 };
 
