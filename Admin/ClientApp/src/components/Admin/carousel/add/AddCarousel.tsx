@@ -11,6 +11,7 @@ import {
   Row,
   Typography,
   Upload,
+  Image,
 } from "antd";
 import React, { FC, useState } from "react";
 import { useHistory } from "react-router";
@@ -29,7 +30,19 @@ export const AddCarousel: FC = () => {
 
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false);
+  const [image, setImage] = useState<string | undefined>(undefined);
 
+  const convertImageToBase64 = (value: any) => {
+    if (value.fileList.length > 0) {
+      let reader = new FileReader();
+      reader.readAsDataURL(value.fileList[0].originFileObj);
+      let base64String: string = "";
+      reader.onloadend = async function (e: any) {
+        base64String = e.target.result;
+        setImage(base64String);
+      };
+    }
+  };
   const onFinish = () => {
     setIsLoading(true);
     form
@@ -158,19 +171,29 @@ export const AddCarousel: FC = () => {
                       valuePropName="file"
                     >
                       <Dragger
+                        onChange={convertImageToBase64}
                         multiple={false}
                         beforeUpload={() => {
                           return false;
                         }}
                         maxCount={1}
                         accept="image/*"
+                        onRemove={() => {
+                          setImage(undefined);
+                        }}
                       >
-                        <p className="ant-upload-drag-icon">
-                          <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">
-                          Click or drag file to this area to upload
-                        </p>
+                        {!image ? (
+                          <>
+                            <p className="ant-upload-drag-icon">
+                              <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">
+                              Click or drag file to this area to upload
+                            </p>
+                          </>
+                        ) : (
+                          <Image preview={{ visible: false }} src={image} />
+                        )}
                       </Dragger>
                     </Form.Item>
                   </Form.Item>

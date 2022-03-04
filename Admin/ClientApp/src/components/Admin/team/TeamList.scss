@@ -1,0 +1,9 @@
+@import "../../../../styles/mixin";
+
+.teamlist {
+  &_pagetitle {
+  }
+  &_action {
+    text-align: end;
+  }
+}
