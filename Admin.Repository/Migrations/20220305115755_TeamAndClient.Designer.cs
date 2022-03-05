@@ -3,15 +3,17 @@ using System;
 using Admin.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Admin.Repository.Migrations
 {
     [DbContext(typeof(AdminDBContext))]
-    partial class AdminDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220305115755_TeamAndClient")]
+    partial class TeamAndClient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,10 +48,10 @@ namespace Admin.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e79bc69f-a1a1-471e-8888-25d045ffd28c"),
-                            CreatedAt = new DateTime(2022, 3, 1, 16, 46, 54, 213, DateTimeKind.Local).AddTicks(6094),
-                            Password = "vVsStQBaiVxDGd9tJhKJJmRpvBjRHXVm8QLi+JeCSZAs3CWpi5aQ1smHcH4RdIH/QMwNl8hQDR888pHxotsLXEHO1agNdA==",
-                            UpdatedAt = new DateTime(2022, 3, 1, 16, 46, 54, 214, DateTimeKind.Local).AddTicks(2979),
+                            Id = new Guid("f9757e74-f550-4057-b014-4323f3fd4c73"),
+                            CreatedAt = new DateTime(2022, 3, 5, 17, 27, 54, 870, DateTimeKind.Local).AddTicks(3827),
+                            Password = "No57rY/IkmXT97MQIs6wJp2h4rnWxY8SIfP6ll6lkorx7S2r/XNAhrnjipNalIzudVWvpdyIEY3azANFW1DZ6Usk//M=",
+                            UpdatedAt = new DateTime(2022, 3, 5, 17, 27, 54, 871, DateTimeKind.Local).AddTicks(4386),
                             UserName = "admin"
                         });
                 });

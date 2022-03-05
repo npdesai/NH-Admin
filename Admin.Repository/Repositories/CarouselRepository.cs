@@ -3,6 +3,7 @@ using Admin.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Admin.Repository.Repositories
@@ -66,9 +67,16 @@ namespace Admin.Repository.Repositories
             }
         }
 
-        public async Task<List<Carousel>> GetCarousels()
+        public async Task<List<Carousel>> GetCarousels(bool? isActive)
         {
-            return await _dbContext.Carousels.ToListAsync();
+            if (isActive.HasValue)
+            {
+                return await _dbContext.Carousels.Where(c => c.IsActive).ToListAsync();
+            }
+            else
+            {
+                return await _dbContext.Carousels.ToListAsync();
+            }
         }
 
         public async Task<Carousel> GetCarouselById(Guid id)

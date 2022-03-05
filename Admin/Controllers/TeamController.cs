@@ -11,32 +11,32 @@ namespace Admin.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    public class CarouselController : ControllerBase
+    public class TeamController : ControllerBase
     {
-        private readonly ICarouselService _carouselService;
+        private readonly ITeamService _teamService;
 
-        public CarouselController(ICarouselService carouselService)
+        public TeamController(ITeamService teamService)
         {
-            _carouselService = carouselService;
+            _teamService = teamService;
         }
 
         /// <summary>
-        /// Add Carousel
+        /// Add Team
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [Authorize]
-        [HttpPost("api/carousel/add")]
+        [HttpPost("api/team/add")]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> AddCarousel([FromBody] AddCarouselRequestDto request)
+        public async Task<ActionResult> AddTeam([FromBody] AddTeamRequestDto request)
         {
             ResponseDto<bool?> response = new();
             try
             {
-                response.Data = await _carouselService.AddCarousel(request);
+                response.Data = await _teamService.AddTeam(request);
                 response.Success = true;
                 return Ok(response);
             }
@@ -50,20 +50,21 @@ namespace Admin.Controllers
         }
 
         /// <summary>
-        /// Get Carousel List
+        /// Get Team List
         /// </summary>
         /// <param name="isActive"></param>
+        /// <param name="isDelete"></param>
         /// <returns></returns>
-        [HttpPost("api/carousel/list")]
-        [ProducesResponseType(typeof(ResponseDto<List<CarouselDto>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseDto<List<CarouselDto>>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseDto<List<CarouselDto>>), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetCarousels(bool? isActive)
+        [HttpPost("api/team/list")]
+        [ProducesResponseType(typeof(ResponseDto<List<TeamDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<List<TeamDto>>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseDto<List<TeamDto>>), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> GetTeams(bool? isActive, bool? isDelete)
         {
-            ResponseDto<List<CarouselDto>> response = new();
+            ResponseDto<List<TeamDto>> response = new();
             try
             {
-                response.Data = await _carouselService.GetCarousels(isActive);
+                response.Data = await _teamService.GetTeams(isActive, isDelete);
                 response.Success = true;
                 return Ok(response);
             }
@@ -77,23 +78,23 @@ namespace Admin.Controllers
         }
 
         /// <summary>
-        /// Update Carousel Active Status
+        /// Update Team Active Status
         /// </summary>
         /// <param name="id"></param>
         /// <param name="isActive"></param>
         /// <returns></returns>
         [Authorize]
-        [HttpPatch("api/carousel/update/{id}")]
+        [HttpPatch("api/team/update/{id}")]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateCarouselActiveStatus(Guid id, bool isActive)
+        public async Task<ActionResult> UpdateTeamActiveStatus(Guid id, bool isActive)
         {
             ResponseDto<bool?> response = new();
             try
             {
-                response.Data = await _carouselService.UpdateCarouselActiveStatus(id, isActive);
+                response.Data = await _teamService.UpdateTeamActiveStatus(id, isActive);
                 response.Success = true;
                 return Ok(response);
             }
@@ -107,22 +108,22 @@ namespace Admin.Controllers
         }
 
         /// <summary>
-        /// Get Carousel By Id
+        /// Get Team By Id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize]
-        [HttpGet("api/carousel/{id}")]
-        [ProducesResponseType(typeof(ResponseDto<CarouselDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ResponseDto<CarouselDto>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ResponseDto<CarouselDto>), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ResponseDto<CarouselDto>), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetCarouselById(Guid id)
+        [HttpGet("api/team/{id}")]
+        [ProducesResponseType(typeof(ResponseDto<TeamDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<TeamDto>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseDto<TeamDto>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseDto<TeamDto>), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> GetTeamById(Guid id)
         {
-            ResponseDto<CarouselDto> response = new();
+            ResponseDto<TeamDto> response = new();
             try
             {
-                response.Data = await _carouselService.GetCarouselById(id);
+                response.Data = await _teamService.GetTeamById(id);
                 response.Success = true;
                 return Ok(response);
             }
@@ -136,22 +137,52 @@ namespace Admin.Controllers
         }
 
         /// <summary>
-        /// Update Carousel
+        /// Update Team
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [Authorize]
-        [HttpPatch("api/carousel/update")]
+        [HttpPatch("api/team/update")]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateCarousel(UpdateCarouselRequestDto request)
+        public async Task<ActionResult> UpdateTeam(UpdateTeamRequestDto request)
         {
             ResponseDto<bool?> response = new();
             try
             {
-                response.Data = await _carouselService.UpdateCarousel(request);
+                response.Data = await _teamService.UpdateTeam(request);
+                response.Success = true;
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return BadRequest(response);
+            }
+        }
+
+        /// <summary>
+        /// Update Team Delete Status
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="isDelete"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPatch("api/team/delete/{id}")]
+        [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ResponseDto<bool?>), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateTeamDeleteStatus(Guid id, bool isDelete)
+        {
+            ResponseDto<bool?> response = new();
+            try
+            {
+                response.Data = await _teamService.UpdateTeamDeleteStatus(id, isDelete);
                 response.Success = true;
                 return Ok(response);
             }

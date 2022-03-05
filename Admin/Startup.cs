@@ -37,8 +37,8 @@ namespace Admin
             services.AddAutoMapper(typeof(Startup), typeof(Mapping));
             services.RegisterAdminServices();
             services.RegisterAdminRepositories();
-            services.AddControllersWithViews();
             services.AddDbContext<AdminDBContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllersWithViews();
 
             // Register the Swagger services
             services.AddSwaggerDocument(s =>
@@ -84,6 +84,7 @@ namespace Admin
                 app.UseHsts();
             }
 
+            app.UseCors();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

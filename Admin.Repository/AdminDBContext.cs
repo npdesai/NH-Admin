@@ -20,6 +20,8 @@ namespace Admin.Repository
 
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<Carousel> Carousels { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

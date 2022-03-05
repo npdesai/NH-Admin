@@ -10,6 +10,8 @@ namespace Admin.Services
         {
             services.AddScoped<IAdminUserService, AdminUserService>();
             services.AddScoped<ICarouselService, CarouselService>();
+            services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IClientService, ClientService>();
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Admin.Repository
         {
             services.AddScoped<IAdminUserRepository, AdminUserRepository>();
             services.AddScoped<ICarouselRepository, CarouselRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
         }
     }
 }

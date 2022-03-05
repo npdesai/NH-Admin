@@ -25,9 +25,9 @@ namespace Admin.Services.Services
             return await _carouselRepository.AddCarousel(_mapper.Map<Carousel>(request));
         }
 
-        public async Task<List<CarouselDto>> GetCarousels()
+        public async Task<List<CarouselDto>> GetCarousels(bool? isActive)
         {
-            var carousels = await _carouselRepository.GetCarousels();
+            var carousels = await _carouselRepository.GetCarousels(isActive);
 
             return _mapper.Map<List<CarouselDto>>(carousels);
         }

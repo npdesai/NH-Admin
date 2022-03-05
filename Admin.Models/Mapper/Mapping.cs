@@ -10,6 +10,10 @@ namespace Admin.Models.Mapper
         {
             CreateMap<AddCarouselRequestDto, Carousel>().ReverseMap();
             CreateMap<Carousel, CarouselDto>().ReverseMap();
+            CreateMap<AddTeamRequestDto, Team>().ReverseMap();
+            CreateMap<Team, TeamDto>().ReverseMap();
+            CreateMap<AddClientRequestDto, Client>().ReverseMap();
+            CreateMap<Client, ClientDto>().ReverseMap();
         }
     }
 }
