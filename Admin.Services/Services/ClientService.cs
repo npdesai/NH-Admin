@@ -67,11 +67,13 @@ namespace Admin.Services.Services
                 var client = await _clientRepository.GetClientById(updateClientRequest.Id);
                 client.Name = updateClientRequest.Name;
                 client.Feedback = updateClientRequest.Feedback;
+                client.Rating = updateClientRequest.Rating;
                 if (!string.IsNullOrEmpty(updateClientRequest.Image?.Trim()))
                 {
                     client.Image = updateClientRequest.Image;
                 }
                 client.IsActive = updateClientRequest.IsActive;
+                client.Location = updateClientRequest.Location;
                 return await _clientRepository.UpdateClient(client);
             }
             catch (Exception ex)

@@ -1,19 +1,15 @@
 @import "../../../../styles/mixin";
 
-.addteam {
+.clientlist {
+  &_pagetitle {
+  }
   &_action {
     text-align: end;
   }
-  &_content {
+  &_table {
     margin-top: 20px;
-  }
-  &_savebtn {
-    min-width: 200px;
   }
   .ant-image-img {
     width: 100px;
-  }
-  .ant-image-mask-info {
-    display: none;
   }
 }

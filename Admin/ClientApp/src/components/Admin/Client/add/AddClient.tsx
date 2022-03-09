@@ -1,31 +1,31 @@
-import { InboxOutlined, UnorderedListOutlined } from "@ant-design/icons";
+import { UnorderedListOutlined, InboxOutlined } from "@ant-design/icons";
 import {
   Button,
   Card,
   Checkbox,
   Col,
-  Divider,
   Form,
   Input,
   message,
+  Rate,
   Row,
   Typography,
   Upload,
   Image,
 } from "antd";
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
+import { FC } from "react";
 import { useHistory } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
-import { CarouselClient } from "../../../../clients/api.generated.clients";
+import { ClientClient } from "../../../../clients/api.generated.clients";
 import { navigate } from "../../../../common/navigation";
-import { validateImage } from "../../../../hooks/validator";
 import { AdminRoutesConstant } from "../../../../routes/AdminRoutes";
-import "./AddCarousel.scss";
+import "./AddClient.scss";
 
 const { Dragger } = Upload;
 const { Title } = Typography;
 
-export const AddCarousel: FC = () => {
+export const AddClient: FC = () => {
   const history = useHistory();
 
   const [form] = Form.useForm();
@@ -43,55 +43,63 @@ export const AddCarousel: FC = () => {
       };
     }
   };
+
+  const AddClient = async (values: any, base64String: string) => {
+    await new ClientClient("", httpWithTokenInHeader)
+      .addClient({
+        name: values.name,
+        feedback: values.feedback,
+        image: base64String,
+        isActive: values.active,
+        location: values.location,
+        rating: values.rate,
+      })
+      .then((res) => {
+        setIsLoading(false);
+        navigate(history, AdminRoutesConstant.AdminPages.ClientList.path);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        if (!err.success) {
+          message.error(err.message, 5);
+        }
+      });
+  };
   const onFinish = () => {
     setIsLoading(true);
     form
       .validateFields()
       .then((values) => {
-        let reader = new FileReader();
-        reader.readAsDataURL(values.image.fileList[0].originFileObj);
         let base64String: string = "";
-        reader.onloadend = async function (e: any) {
-          base64String = e.target.result;
-          await new CarouselClient("", httpWithTokenInHeader)
-            .addCarousel({
-              title: values.title,
-              description: values.description,
-              image: base64String,
-              isActive: values.active,
-            })
-            .then((res) => {
-              navigate(
-                history,
-                AdminRoutesConstant.AdminPages.CarouselList.path
-              );
-              setIsLoading(false);
-            })
-            .catch((err) => {
-              setIsLoading(false);
-              if (!err.success) {
-                message.error(err.message, 5);
-              }
-            });
-        };
+        if (values.image != undefined) {
+          let reader = new FileReader();
+          reader.readAsDataURL(values.image.fileList[0].originFileObj);
+          reader.onloadend = async function (e: any) {
+            base64String = e.target.result;
+            AddClient(values, base64String);
+          };
+          return;
+        }
+        AddClient(values, base64String);
       })
       .catch((info) => {
         setIsLoading(false);
         console.log("Validate Failed:", info);
       });
   };
+
   return (
-    <div className="addcarousel">
+    <div className="addclient">
       <Row gutter={[0, { xs: 16 }]} justify="space-between" align="middle">
         <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 1 }}>
-          <Title level={3} className="addcarousel_pagetitle">
-            Add Carousel
+          <Title level={3} className="addclient_pagetitle">
+            Add Client
           </Title>
         </Col>
         <Col
           xs={{ span: 24, order: 1 }}
           md={{ span: 12, order: 2 }}
-          className="addcarousel_action"
+          className="addclient_action"
         >
           <Button
             type="primary"
@@ -99,23 +107,20 @@ export const AddCarousel: FC = () => {
             icon={<UnorderedListOutlined />}
             size="middle"
             onClick={() =>
-              navigate(
-                history,
-                AdminRoutesConstant.AdminPages.CarouselList.path
-              )
+              navigate(history, AdminRoutesConstant.AdminPages.ClientList.path)
             }
           >
-            Carousel List
+            Client List
           </Button>
         </Col>
       </Row>
-      <Row className="addcarousel_content">
+      <Row className="addclient_content">
         <Col xs={24}>
           <Card>
             <Form
               form={form}
-              onFinish={onFinish}
               layout="vertical"
+              onFinish={onFinish}
               initialValues={{
                 active: true,
               }}
@@ -123,28 +128,29 @@ export const AddCarousel: FC = () => {
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24, order: 1 }} md={{ span: 12, order: 1 }}>
                   <Form.Item
-                    label="Title"
-                    name="title"
+                    label="Name"
+                    name="name"
                     rules={[
-                      { required: true, message: "Please input your Title" },
+                      { required: true, message: "Please input your Name" },
                     ]}
                   >
-                    <Input placeholder="Title" />
+                    <Input placeholder="Name" />
                   </Form.Item>
-                  <Form.Item
-                    label="Description"
-                    name="description"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your Description",
-                      },
-                    ]}
-                  >
-                    <Input.TextArea placeholder="Description" />
+                  <Form.Item label="Feedback" name="feedback">
+                    <Input.TextArea placeholder="Feedback" />
                   </Form.Item>
                 </Col>
                 <Col xs={{ span: 24, order: 3 }} md={{ span: 12, order: 3 }}>
+                  <Form.Item name="location" label="Location">
+                    <Input placeholder="Location " />
+                  </Form.Item>
+                </Col>
+                <Col xs={{ span: 24, order: 4 }} md={{ span: 12, order: 3 }}>
+                  <Form.Item name="rate" label="Rate">
+                    <Rate allowHalf />
+                  </Form.Item>
+                </Col>
+                <Col xs={{ span: 24, order: 5 }} md={{ span: 12, order: 3 }}>
                   <Form.Item
                     label="Active"
                     name="active"
@@ -154,22 +160,8 @@ export const AddCarousel: FC = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 2 }}>
-                  <Form.Item
-                    label="Image"
-                    name="image"
-                    rules={[
-                      {
-                        required: true,
-                        validator: validateImage,
-                      },
-                    ]}
-                  >
-                    <Form.Item
-                      name="image"
-                      rules={[{ required: false }]}
-                      noStyle
-                      valuePropName="file"
-                    >
+                  <Form.Item label="Image" name="image">
+                    <Form.Item name="image" noStyle valuePropName="file">
                       <Dragger
                         onChange={convertImageToBase64}
                         multiple={false}
@@ -181,19 +173,19 @@ export const AddCarousel: FC = () => {
                         onRemove={() => {
                           setImage(undefined);
                         }}
-                      > 
-                      {!image ? (
-                        <>
-                          <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                          </p>
-                          <p className="ant-upload-text">
-                            Click or drag file to this area to upload
-                          </p>
-                        </>
-                      ) : (
-                        <Image preview={{ visible: false }} src={image} />
-                      )}
+                      >
+                        {!image ? (
+                          <>
+                            <p className="ant-upload-drag-icon">
+                              <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">
+                              Click or drag file to this area to upload
+                            </p>
+                          </>
+                        ) : (
+                          <Image preview={{ visible: false }} src={image} />
+                        )}
                       </Dragger>
                     </Form.Item>
                   </Form.Item>
@@ -205,7 +197,7 @@ export const AddCarousel: FC = () => {
                     <Button
                       type="primary"
                       htmlType="submit"
-                      className="addcarousel_savebtn"
+                      className="addclient_savebtn"
                       loading={isLoading}
                       disabled={isLoading}
                     >

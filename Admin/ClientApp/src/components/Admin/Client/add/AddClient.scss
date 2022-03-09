@@ -1,7 +1,7 @@
 @import "../../../../styles/mixin";
 
-.addteam {
-  &_action {
+.addclient {
+  .addclient_action {
     text-align: end;
   }
   &_content {
@@ -10,10 +10,10 @@
   &_savebtn {
     min-width: 200px;
   }
-  .ant-image-img {
-    width: 100px;
-  }
-  .ant-image-mask-info {
-    display: none;
-  }
+}
+.ant-image-img {
+  width: 100px;
+}
+.ant-image-mask-info {
+  display: none;
 }

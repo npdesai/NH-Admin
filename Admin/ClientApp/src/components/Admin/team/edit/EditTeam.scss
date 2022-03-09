@@ -1,6 +1,6 @@
 @import "../../../../styles/mixin";
 
-.addteam {
+.editteam {
   &_action {
     text-align: end;
   }
@@ -10,6 +10,9 @@
   &_savebtn {
     min-width: 200px;
   }
+   &_cancelbtn{
+    min-width: 200px;
+   }
   .ant-image-img {
     width: 100px;
   }

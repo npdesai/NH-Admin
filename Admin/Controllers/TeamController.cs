@@ -55,7 +55,7 @@ namespace Admin.Controllers
         /// <param name="isActive"></param>
         /// <param name="isDelete"></param>
         /// <returns></returns>
-        [HttpPost("api/team/list")]
+        [HttpGet("api/team/list")]
         [ProducesResponseType(typeof(ResponseDto<List<TeamDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<List<TeamDto>>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseDto<List<TeamDto>>), StatusCodes.Status500InternalServerError)]

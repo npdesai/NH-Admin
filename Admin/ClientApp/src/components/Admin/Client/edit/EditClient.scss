@@ -1,0 +1,21 @@
+@import "../../../../styles/mixin.scss";
+
+.editclient{
+    &_content {
+        margin-top: 20px;
+      }&_action{
+        text-align: end;
+      }
+      &_savebtn {
+        min-width: 200px;
+      }
+      &_cancelbtn {
+        min-width: 200px;
+      }
+      .ant-image-img {
+        width: 100px;
+      }
+      .ant-image-mask-info {
+        display: none;
+      }
+}

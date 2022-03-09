@@ -1,0 +1,15 @@
+@import "../../../../styles/mixin.scss";
+
+.teamlist {
+  &_pagetitle {
+  }
+  &_action {
+    text-align: end;
+  }
+  &_table {
+    margin-top: 20px;
+  }
+  .ant-image-img {
+    width: 100px;
+  }
+}

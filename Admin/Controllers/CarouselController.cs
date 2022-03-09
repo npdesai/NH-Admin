@@ -54,7 +54,7 @@ namespace Admin.Controllers
         /// </summary>
         /// <param name="isActive"></param>
         /// <returns></returns>
-        [HttpPost("api/carousel/list")]
+        [HttpGet("api/carousel/list")]
         [ProducesResponseType(typeof(ResponseDto<List<CarouselDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<List<CarouselDto>>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseDto<List<CarouselDto>>), StatusCodes.Status500InternalServerError)]

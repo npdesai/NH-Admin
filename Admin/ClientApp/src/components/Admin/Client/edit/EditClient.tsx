@@ -11,19 +11,20 @@ import {
   Typography,
   Upload,
   Image,
+  Rate,
 } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
-import { CarouselClient } from "../../../../clients/api.generated.clients";
+import { ClientClient } from "../../../../clients/api.generated.clients";
 import { navigate } from "../../../../common/navigation";
 import { AdminRoutesConstant } from "../../../../routes/AdminRoutes";
-import "./EditCarousel.scss";
+import "./EditClient.scss";
 
 const { Dragger } = Upload;
 const { Title } = Typography;
 
-export const EditCarousel: FC = () => {
+export const EditClient: FC = () => {
   const history = useHistory();
   const params = useParams();
   const [form] = Form.useForm();
@@ -32,19 +33,21 @@ export const EditCarousel: FC = () => {
     undefined
   );
   const [image, setImage] = useState<string | undefined>(undefined);
-
+  
   useEffect(() => {
-    new CarouselClient("", httpWithTokenInHeader)
-      .getCarouselById(params.id)
+    new ClientClient("", httpWithTokenInHeader)
+      .getClientById(params.id)
       .then((result) => {
         if (result.success) {
           setImage(result.data && result.data.image);
           setOriginalImage(result.data && result.data.image);
           form.setFieldsValue({
-            title: result.data && result.data.title,
-            description: result.data && result.data.description,
+            name: result.data && result.data.name,
+            feedback: result.data && result.data.feedback,
+            rating: result.data && result.data.rating,
             image: result.data && result.data.image,
             active: result.data && result.data.isActive,
+            location: result.data && result.data.location,
           });
         }
       })
@@ -52,8 +55,7 @@ export const EditCarousel: FC = () => {
         console.error(err);
       });
   }, [params.id != undefined]);
-
-  const convertImageToBase64 = (value: any) => {
+ const convertImageToBase64 = (value: any) => {
     if (value.fileList.length > 0) {
       let reader = new FileReader();
       reader.readAsDataURL(value.fileList[0].originFileObj);
@@ -64,8 +66,7 @@ export const EditCarousel: FC = () => {
       };
     }
   };
-
-  const onFinish = () => {
+ const onFinish = () => {
     setIsLoading(true);
     form
       .validateFields()
@@ -73,16 +74,16 @@ export const EditCarousel: FC = () => {
         if (values.image) {
           if (values.image.fileList) {
             if (values.image.fileList[0].type.match("image.*")) {
-              updateCarousel(values, image);
+              updateClient(values, image);
             } else {
               setIsLoading(false);
               message.error(`Please choose only image`);
             }
           } else {
-            updateCarousel(values, image);
+            updateClient(values, image);
           }
         } else {
-          updateCarousel(values, undefined);
+          updateClient(values, undefined);
         }
       })
       .catch((info) => {
@@ -90,19 +91,20 @@ export const EditCarousel: FC = () => {
         console.log("Validate Failed:", info);
       });
   };
-
-  const updateCarousel = async (values: any, base64String: any) => {
-    await new CarouselClient("", httpWithTokenInHeader)
-      .updateCarousel({
+ const updateClient = async (values: any, base64String: any) => {
+    await new ClientClient("", httpWithTokenInHeader)
+      .updateClient({
         id: params.id,
-        title: values.title,
-        description: values.description,
+        name: values.name,
+        feedback: values.feedback,
         image: base64String,
+        rating: values.rating,
         isActive: values.active,
+        location: values.location,
       })
       .then((res) => {
-        navigate(history, AdminRoutesConstant.AdminPages.CarouselList.path);
         setIsLoading(false);
+        navigate(history, AdminRoutesConstant.AdminPages.ClientList.path);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -111,19 +113,18 @@ export const EditCarousel: FC = () => {
         }
       });
   };
-
-  return (
-    <div className="editcarousel">
+return (
+    <div className="editclient">
       <Row gutter={[0, { xs: 16 }]} justify="space-between" align="middle">
         <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 1 }}>
           <Title level={3} className="editcarousel_pagetitle">
-            Edit Carousel
+            Edit ClientList
           </Title>
         </Col>
         <Col
           xs={{ span: 24, order: 1 }}
           md={{ span: 12, order: 2 }}
-          className="editcarousel_action"
+          className="editclient_action"
         >
           <Button
             type="primary"
@@ -131,17 +132,14 @@ export const EditCarousel: FC = () => {
             icon={<UnorderedListOutlined />}
             size="middle"
             onClick={() =>
-              navigate(
-                history,
-                AdminRoutesConstant.AdminPages.CarouselList.path
-              )
+              navigate(history, AdminRoutesConstant.AdminPages.ClientList.path)
             }
           >
-            Carousel List
+            Client List
           </Button>
         </Col>
       </Row>
-      <Row className="editcarousel_content">
+      <Row className="editclient_content">
         <Col xs={24}>
           <Card>
             <Form
@@ -155,27 +153,29 @@ export const EditCarousel: FC = () => {
               <Row gutter={[16, 16]}>
                 <Col xs={{ span: 24, order: 1 }} md={{ span: 12, order: 1 }}>
                   <Form.Item
-                    label="Title"
-                    name="title"
+                    label="Name"
+                    name="name"
                     rules={[
                       { required: true, message: "Please input your Title" },
                     ]}
                   >
-                    <Input placeholder="Title" />
+                    <Input placeholder="Name" />
                   </Form.Item>
-                  <Form.Item
-                    label="Description"
-                    name="description"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your Description",
-                      },
-                    ]}
-                  >
-                    <Input.TextArea placeholder="Description" />
+                  <Form.Item label="Feedback" name="feedback">
+                    <Input.TextArea placeholder="Feedback" />
                   </Form.Item>
                 </Col>
+                <Col xs={{ span: 24, order: 4 }} md={{ span: 12, order: 3 }}>
+                  <Form.Item label="Location" name="location">
+                    <Input placeholder="Location" />
+                  </Form.Item>
+                </Col>
+                <Col xs={{ span: 24, order: 4 }} md={{ span: 12, order: 3 }}>
+                  <Form.Item label="Rating" name="rating">
+                    <Rate allowHalf />
+                  </Form.Item>
+                </Col>
+
                 <Col xs={{ span: 24, order: 3 }} md={{ span: 12, order: 3 }}>
                   <Form.Item
                     label="Active"
@@ -185,13 +185,14 @@ export const EditCarousel: FC = () => {
                     <Checkbox />
                   </Form.Item>
                 </Col>
+
                 <Col xs={{ span: 24, order: 2 }} md={{ span: 12, order: 2 }}>
                   <Form.Item
                     label="Image"
                     name="image"
                     rules={[
                       {
-                        required: true,
+                        required: false,
                       },
                     ]}
                   >
@@ -239,7 +240,7 @@ export const EditCarousel: FC = () => {
                     <Button
                       type="primary"
                       htmlType="submit"
-                      className="editcarousel_savebtn"
+                      className="editclient_savebtn"
                       loading={isLoading}
                       disabled={isLoading}
                     >
@@ -247,15 +248,15 @@ export const EditCarousel: FC = () => {
                     </Button>
                   </Form.Item>
                 </Col>
-                <Col span={5}>
+                <Col>
                   <Form.Item>
                     <Button
                       type="default"
-                      className="editcarousel_cancelbtn"
+                      className="editclient_cancelbtn"
                       onClick={() =>
                         navigate(
                           history,
-                          AdminRoutesConstant.AdminPages.CarouselList.path
+                          AdminRoutesConstant.AdminPages.ClientList.path
                         )
                       }
                     >

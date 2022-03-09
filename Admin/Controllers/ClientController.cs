@@ -55,7 +55,7 @@ namespace Admin.Controllers
         /// <param name="isActive"></param>
         /// <param name="isDelete"></param>
         /// <returns></returns>
-        [HttpPost("api/client/list")]
+        [HttpGet("api/client/list")]
         [ProducesResponseType(typeof(ResponseDto<List<ClientDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseDto<List<ClientDto>>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ResponseDto<List<ClientDto>>), StatusCodes.Status500InternalServerError)]

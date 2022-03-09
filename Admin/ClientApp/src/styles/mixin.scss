@@ -1,169 +1,202 @@
 @import "./color";
 
 @mixin spinner {
-    .ant-spin-dot-item {
-        background-color: $spinnerBGColor;
-    }
+  .ant-spin-dot-item {
+    background-color: $spinnerBGColor;
+  }
 }
 
 @mixin pageTitle {
-    h3.ant-typography {
-        color: $pageTitleColor;
-    }
-    h4.ant-typography {
-        color: $pageTitleColor;
-    }
+  h3.ant-typography {
+    color: $pageTitleColor;
+  }
+  h4.ant-typography {
+    color: $pageTitleColor;
+  }
 }
 
 @mixin button {
-    .ant-btn {
-        border-color: $buttonBorderColor;
-        background-color: $buttonBGColor;
-        &:hover {
-            background-color: $buttonHoverColor;
-            border-color: $buttonBorderColor;
-            color: $buttonBorderColor;
-        }
+  .ant-btn {
+    border-color: $buttonBorderColor;
+    background-color: $buttonBGColor;
+    &:hover {
+      background-color: $buttonHoverColor;
+      border-color: $buttonBorderColor;
+      color: $buttonBorderColor;
     }
+  }
+  .ant-btn.ant-btn-default {
+    border-color: $buttonBorderColor;
+    background-color: $buttonHoverColor;
+    color: $buttonBorderColor;
+    &:hover {
+      background-color: $buttonBGColor;
+      border-color: $buttonBorderColor;
+      color: $defaultButtonHoverColor;
+    }
+  }
 }
 
 @mixin input {
-    .ant-input {
-        &:hover {
-            border-color: $inputBorderColor;
-        }
-        &:focus {
-            border-color: $inputBorderColor;
-            box-shadow: 0 0 0 2px $inputFocusShadow;
-        }
+  .ant-input {
+    &:hover {
+      border-color: $inputBorderColor;
     }
-    .ant-input-affix-wrapper {
-        &:not(.ant-input-affix-wrapper-disabled) {
-            &:hover {
-                border-color: $inputBorderColor;
-            }
-        }
-        &:focus {
-            border-color: $inputBorderColor;
-            box-shadow: 0 0 0 2px $inputFocusShadow;
-        }
-        .ant-input-prefix {
-            .anticon {
-                color: $inputBorderColor;
-            }
-        }
+    &:focus {
+      border-color: $inputBorderColor;
+      box-shadow: 0 0 0 2px $inputFocusShadow;
     }
-    .ant-input-affix-wrapper-focused {
+  }
+  .ant-input-affix-wrapper {
+    &:not(.ant-input-affix-wrapper-disabled) {
+      &:hover {
         border-color: $inputBorderColor;
-        box-shadow: 0 0 0 2px $inputFocusShadow;
+      }
     }
-    .ant-form-item-has-error {
-        .ant-input-prefix {
-            .anticon {
-                color: $inputErrorPrefixIcon;
-            }
-        }
+    &:focus {
+      border-color: $inputBorderColor;
+      box-shadow: 0 0 0 2px $inputFocusShadow;
     }
+    .ant-input-prefix {
+      .anticon {
+        color: $inputBorderColor;
+      }
+    }
+  }
+  .ant-input-affix-wrapper-focused {
+    border-color: $inputBorderColor;
+    box-shadow: 0 0 0 2px $inputFocusShadow;
+  }
+  .ant-form-item-has-error {
+    .ant-input-prefix {
+      .anticon {
+        color: $inputErrorPrefixIcon;
+      }
+    }
+  }
 }
 
 @mixin uploadIcon {
-    .ant-upload.ant-upload-drag {
-        &:not(.ant-upload-disabled) {
-            &:hover {
-                border-color: $uploadBorderColor;
-            }
-        }
-        p.ant-upload-text {
-            font-size: 14px;
-        }
-        p.ant-upload-drag-icon {
-            .anticon {
-                color: $uploadIconColor;
-            }
-        }
+  .ant-upload.ant-upload-drag {
+    &:not(.ant-upload-disabled) {
+      &:hover {
+        border-color: $uploadBorderColor;
+      }
     }
+    p.ant-upload-text {
+      font-size: 14px;
+    }
+    p.ant-upload-drag-icon {
+      .anticon {
+        color: $uploadIconColor;
+      }
+    }
+  }
 }
 
 @mixin leftMenu {
-    .ant-menu-inline.ant-menu-root {
-        .ant-menu-item {
-            > .ant-menu-title-content {
-                color: $leftMenuTextColor;
-            }
-        }
-    }
-    .ant-menu {
-        &:not(.ant-menu-horizontal) {
-            .ant-menu-item-selected {
-                background-color: $leftMenuHoverBGColor;
-                .anticon {
-                    color: $leftMenuTextColor;
-                }
-                .ant-menu-title-content {
-                    color: $leftMenuTextColor;
-                }
-            }
-        }
-    }
-    .ant-menu-inline {
-        .ant-menu-item {
-            &::after {
-                border-right: 3px solid $leftMenuTextColor;
-            }
-        }
-    }
-    .ant-menu-light {
-        .ant-menu-item {
-            &:hover {
-                color: $leftMenuHoverTextColor;
-            }
-            .anticon {
-                color: $leftMenuTextColor;
-            }
-        }
-    }
-
-    .ant-layout-sider-trigger {
-        border-right: 1px solid #b6b5b5;
+  .ant-menu-inline.ant-menu-root {
+    .ant-menu-item {
+      > .ant-menu-title-content {
         color: $leftMenuTextColor;
-        background-color: $leftMenuHoverBGColor;
+      }
     }
+  }
+  .ant-menu {
+    &:not(.ant-menu-horizontal) {
+      .ant-menu-item-selected {
+        background-color: $leftMenuHoverBGColor;
+        .anticon {
+          color: $leftMenuTextColor;
+        }
+        .ant-menu-title-content {
+          color: $leftMenuTextColor;
+        }
+      }
+    }
+  }
+  .ant-menu-inline {
+    .ant-menu-item {
+      &::after {
+        border-right: 3px solid $leftMenuTextColor;
+      }
+    }
+  }
+  .ant-menu-light {
+    .ant-menu-item {
+      &:hover {
+        color: $leftMenuHoverTextColor;
+      }
+      .anticon {
+        color: $leftMenuTextColor;
+      }
+    }
+  }
+
+  .ant-layout-sider-trigger {
+    border-right: 1px solid #b6b5b5;
+    color: $leftMenuTextColor;
+    background-color: $leftMenuHoverBGColor;
+  }
 }
 
 @mixin checkbox {
-    .ant-checkbox-checked {
-        &::after {
-            border: 1px solid $checkboxBorderColor;
-        }
+  .ant-checkbox-checked {
+    &::after {
+      border: 1px solid $checkboxBorderColor;
+    }
+    .ant-checkbox-inner {
+      background-color: $checkboxBorderColor;
+      border-color: $checkboxBorderColor;
+    }
+  }
+  &::selection {
+    background: $checkboxBorderColor;
+  }
+  .ant-checkbox {
+    &:hover {
+      .ant-checkbox-inner {
+        border-color: $checkboxBorderColor;
+      }
+    }
+  }
+  .ant-checkbox-wrapper {
+    &:hover {
+      .ant-checkbox-inner {
+        border-color: $checkboxBorderColor;
+      }
+    }
+  }
+  .ant-checkbox-input {
+    &:focus {
+      + {
         .ant-checkbox-inner {
-            background-color: $checkboxBorderColor;
-            border-color: $checkboxBorderColor;
+          border-color: $checkboxBorderColor;
         }
+      }
     }
-    &::selection {
-        background: $checkboxBorderColor;
+  }
+}
+
+@mixin expandIcon {
+  .ant-table-row-expand-icon {
+    border: 1px solid $expandIconBorderColor;
+    border-radius: 15%;
+  }
+  .ant-table-row-expand-icon {
+    &:focus {
+      color: $expandIconColor;
     }
-    .ant-checkbox {
-        &:hover {
-            .ant-checkbox-inner {
-                border-color: $checkboxBorderColor;
-            }
-        }
+    &:hover {
+      color: $expandIconColor;
     }
-    .ant-checkbox-wrapper {
-        &:hover {
-            .ant-checkbox-inner {
-                border-color: $checkboxBorderColor;
-            }
-        }
+  }
+  .ant-table-row-expand-icon-collapsed {
+    &::after {
+      color: $expandIconColor;
     }
-    .ant-checkbox-input {
-        &:focus {
-            + {
-                .ant-checkbox-inner {
-                    border-color: $checkboxBorderColor;
-                }
-            }
-        }
+    &::before {
+      color: $expandIconColor;
     }
+  }
 }

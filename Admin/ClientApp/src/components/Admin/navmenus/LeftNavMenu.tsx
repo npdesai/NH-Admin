@@ -1,4 +1,4 @@
-import { AppstoreOutlined, TeamOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, TeamOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
@@ -33,13 +33,22 @@ export const LeftNavMenu: FC = () => {
          Carousel
         </Menu.Item>
         <Menu.Item
-          key="teamlist"
+          key="team"
           icon={<TeamOutlined />}
           onClick={() =>
             navigate(history, AdminRoutesConstant.AdminPages.TeamList.path)
           }
         >
        Team
+        </Menu.Item>
+        <Menu.Item
+          key="client"
+          icon={<UserAddOutlined />}
+          onClick={() =>
+            navigate(history, AdminRoutesConstant.AdminPages.ClientList.path)
+          }
+        >
+      Client
         </Menu.Item>
       </Menu>
     </Sider>
