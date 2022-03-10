@@ -19,6 +19,7 @@
   .ant-btn {
     border-color: $buttonBorderColor;
     background-color: $buttonBGColor;
+    color: $defaultButtonHoverColor;
     &:hover {
       background-color: $buttonHoverColor;
       border-color: $buttonBorderColor;
