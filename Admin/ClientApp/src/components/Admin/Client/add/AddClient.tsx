@@ -13,8 +13,7 @@ import {
   Upload,
   Image,
 } from "antd";
-import React, { useState } from "react";
-import { FC } from "react";
+import React, { FC, useState } from "react";
 import { useHistory } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
 import { ClientClient } from "../../../../clients/api.generated.clients";

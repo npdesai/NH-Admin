@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
-import "./NavMenu.scss";
 import { Layout } from "antd";
+import "./NavMenu.scss";
 
 const { Header } = Layout;
 

@@ -14,8 +14,7 @@ import {
   Image,
   Typography,
 } from "antd";
-import React, { useEffect, useState } from "react";
-import { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { httpWithTokenInHeader } from "../../../../clients/api.clients.base";
 import { ClientClient } from "../../../../clients/api.generated.clients";

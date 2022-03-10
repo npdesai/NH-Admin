@@ -1,6 +1,6 @@
 import { AppstoreOutlined, TeamOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { navigate } from "../../../common/navigation";
 import { AdminRoutesConstant } from "../../../routes/AdminRoutes";
