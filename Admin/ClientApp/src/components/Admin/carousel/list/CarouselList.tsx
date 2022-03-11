@@ -66,14 +66,14 @@ export const CarouselList: FC = () => {
     {
       title: "Description",
       dataIndex: "description",
-      ellipsis: true
+      ellipsis: true,
     },
     {
       title: "Image",
       dataIndex: "image",
-      width: "15%",
+      width: "10%",
       align: "center",
-      render: (_image: any) => <Image src={_image} preview={{ src: _image }} />, 
+      render: (_image: any) => <Image  src={_image} preview={{ src: _image }} />,
     },
     {
       title: "IsActive",
@@ -127,7 +127,11 @@ export const CarouselList: FC = () => {
       </Row>
       <Row className="carousellist_table">
         <Col xs={24}>
-          <Table dataSource={carouselData} columns={carouselTableColumns} loading={isLoading} />
+          <Table
+            dataSource={carouselData}
+            columns={carouselTableColumns}
+            loading={isLoading}
+          />
         </Col>
       </Row>
     </div>

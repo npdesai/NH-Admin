@@ -19,7 +19,6 @@
   }
   .ant-layout-sider {
     border-right: 1px solid #b6b5b5;
-    height: calc(100vh - 64px);
     @media only screen and (device-width: 320px) and (device-height: 568px) {
       height: 100vh;
     }

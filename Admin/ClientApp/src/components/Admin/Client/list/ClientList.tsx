@@ -64,12 +64,17 @@ export const ClientList: FC = () => {
         console.error(err);
       });
   };
-  const Delete = async (rowIndex: any, value: any) => {
-    const newDeleteCheckbox = [...clientData];
-    newDeleteCheckbox[rowIndex].isDelete = value;
+  const Delete = async (key: any, value: any) => {
+    let newDeleteCheckbox = [...clientData];
+    newDeleteCheckbox = newDeleteCheckbox.filter((ele)=>{
+      if(ele.key == key ){
+        ele.isDelete = value;
+      }
+      return ele;
+    })
     setClientData(newDeleteCheckbox);
     await new ClientClient("", httpWithTokenInHeader)
-      .updateClientDeleteStatus(newDeleteCheckbox[rowIndex].key, value)
+      .updateClientDeleteStatus(key, value)
       .then((res) => {})
       .catch((err) => {
         console.error(err);
@@ -105,16 +110,17 @@ export const ClientList: FC = () => {
         width: "10%",
         editable: true,
         responsive: ["lg"],
-        render: (value: any, record: any, rowIndex: any) => (
+        render: (value: any, record: any) => (
           <Checkbox
-            checked={record.isDelete}
-            onClick={() => Delete(rowIndex, !value)}
+            checked={record.isDelete} 
+            onChange={() => Delete(record.key, !value)}
           />
         ),
       },
     ];
     const tableData = [
       {
+        key:values.key,
         feedback: values.feedback,
         rating: values.rating,
         location: values.location,

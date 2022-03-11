@@ -54,12 +54,17 @@ export const TeamList: FC = () => {
       });
   };
 
-  const Delete = async (rowIndex: any, value: any) => {
-    const newDeleteCheckbox = [...teamData];
-    newDeleteCheckbox[rowIndex].isDelete = value;
+  const Delete = async (key: any, value: any) => {
+    let newDeleteCheckbox = [...teamData];
+    newDeleteCheckbox = newDeleteCheckbox.filter((ele)=>{
+      if(ele.key == key ){
+        ele.isDelete = value;
+      }
+      return ele;
+    })
     setTeamData(newDeleteCheckbox);
     await new TeamClient("", httpWithTokenInHeader)
-      .updateTeamDeleteStatus(newDeleteCheckbox[rowIndex].key, value)
+      .updateTeamDeleteStatus(key, value)
       .then((res) => {})
       .catch((err) => {
         console.error(err);
@@ -91,16 +96,17 @@ export const TeamList: FC = () => {
         width: "10%",
         editable: true,
         responsive: ["lg"],
-        render: (value: any, record: any, rowIndex: any) => (
+        render: (value: any, record: anyy) => (
           <Checkbox
             checked={record.isDelete}
-            onClick={() => Delete(rowIndex, !value)}
+            onClick={() => Delete(record.key, !value)}
           />
         ),
       },
     ];
     const tableData = [
       {
+        key:values.key,
         title: values.title,
         details: values.details,
         isDelete: values.isDelete,
