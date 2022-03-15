@@ -1,17 +1,17 @@
 import React, { FC } from "react";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
-import { AddCarousel } from "../components/Admin/carousel/add/AddCarousel";
-import { EditCarousel } from "../components/Admin/carousel/edit/EditCarousel";
-import { CarouselList } from "../components/Admin/carousel/list/CarouselList";
-import { AddClient } from "../components/Admin/Client/add/AddClient";
-import { ClientList } from "../components/Admin/Client/list/ClientList";
-import { EditClient } from "../components/Admin/Client/edit/EditClient";
-import { Home } from "../components/Admin/Home";
-import { Login } from "../components/Admin/login/Login";
-import { AddTeam } from "../components/Admin/team/add/AddTeam";
-import { TeamList } from "../components/Admin/team/list/TeamList";
+import { AddCarousel } from "../components/admin/carousel/add/AddCarousel";
+import { EditCarousel } from "../components/admin/carousel/edit/EditCarousel";
+import { CarouselList } from "../components/admin/carousel/list/CarouselList";
+import { AddClient } from "../components/admin/client/add/AddClient";
+import { ClientList } from "../components/admin/client/list/ClientList";
+import { EditClient } from "../components/admin/client/edit/EditClient";
+import { Home } from "../components/admin/Home";
+import { Login } from "../components/admin/login/Login";
+import { AddTeam } from "../components/admin/team/add/AddTeam";
+import { TeamList } from "../components/admin/team/list/TeamList";
 import { useAuth } from "../hooks/useAuth";
-import { EditTeam } from "../components/Admin/team/edit/EditTeam";
+import { EditTeam } from "../components/admin/team/edit/EditTeam";
 
 interface RouteKey {
   [key: string]: {

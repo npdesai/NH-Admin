@@ -1,8 +1,8 @@
 import { Layout } from "antd";
 import React, { FC } from "react";
 import { useLocation } from "react-router";
-import { LeftNavMenu } from "./Admin/navmenus/LeftNavMenu";
-import { TopNavMenu } from "./Admin/navmenus/TopNavMenu";
+import { LeftNavMenu } from "./admin/navmenus/LeftNavMenu";
+import { TopNavMenu } from "./admin/navmenus/TopNavMenu";
 import { NavMenu } from "./navmenus/NavMenu";
 
 const { Content } = Layout;
