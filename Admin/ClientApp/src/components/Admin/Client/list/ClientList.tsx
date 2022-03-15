@@ -188,7 +188,6 @@ export const ClientList: FC = () => {
             type="primary"
             icon={<PlusCircleOutlined />}
             size="middle"
-            className="btn"
             onClick={() =>
               navigate(history, AdminRoutesConstant.AdminPages.AddClient.path)
             }

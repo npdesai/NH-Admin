@@ -104,7 +104,7 @@ export const AddTeam: FC = () => {
         >
           <Button
             type="primary"
-            className="btn"
+            className="addteam_btn"
             icon={<UnorderedListOutlined />}
             size="middle"
             onClick={() =>

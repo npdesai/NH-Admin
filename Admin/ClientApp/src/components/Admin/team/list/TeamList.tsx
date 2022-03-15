@@ -96,7 +96,7 @@ export const TeamList: FC = () => {
         width: "10%",
         editable: true,
         responsive: ["lg"],
-        render: (value: any, record: anyy) => (
+        render: (value: any, record: any) => (
           <Checkbox
             checked={record.isDelete}
             onClick={() => Delete(record.key, !value)}
@@ -172,7 +172,6 @@ export const TeamList: FC = () => {
             type="primary"
             icon={<PlusCircleOutlined />}
             size="middle"
-            className="btn"
             onClick={() =>
               navigate(history, AdminRoutesConstant.AdminPages.AddTeam.path)
             }

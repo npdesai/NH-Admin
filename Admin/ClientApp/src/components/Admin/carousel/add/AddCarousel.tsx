@@ -95,7 +95,6 @@ export const AddCarousel: FC = () => {
         >
           <Button
             type="primary"
-            className="btn"
             icon={<UnorderedListOutlined />}
             size="middle"
             onClick={() =>

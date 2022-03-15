@@ -116,7 +116,6 @@ export const CarouselList: FC = () => {
             type="primary"
             icon={<PlusCircleOutlined />}
             size="middle"
-            className="btn"
             onClick={() =>
               navigate(history, AdminRoutesConstant.AdminPages.AddCarousel.path)
             }
