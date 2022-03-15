@@ -16,12 +16,12 @@
   .ant-layout-header {
     background: #ffffff !important;
     border-bottom: 1px solid #b6b5b5;
+    box-shadow: 0 5px 10px 0 rgba(201, 238, 235, 0.5);
   }
   .ant-layout-sider {
-    border-right: 1px solid #b6b5b5;
-    @media only screen and (device-width: 320px) and (device-height: 568px) {
-      height: 100vh;
-    }
+    border-right: 1px solid #52ada3;
+    box-shadow: 0 5px 10px 0 rgba(201, 238, 235, 0.5);
+    min-height: calc(100vh - 64px);
     background: #ffffff;
   }
   &_fix_header {

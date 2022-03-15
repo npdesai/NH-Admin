@@ -42,7 +42,7 @@ export const Login: FC = () => {
 
   return (
     <Row justify="space-around" align="middle" className="login_container">
-      <Col xs={24} sm={16} md={8}>
+      <Col xs={24} sm={16} md={10} lg={8}>
         <Card>
           <Form
             form={form}
@@ -52,7 +52,7 @@ export const Login: FC = () => {
           >
             <Row justify="center" align="middle">
               <Col>
-                <Title level={4}>Admin</Title>
+                <Title level={3}>Admin</Title>
               </Col>
             </Row>
             <Row justify="center" align="middle">

@@ -5,13 +5,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  .ant-card-bordered {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(201, 238, 235, 0.2), 0 6px 20px 0 rgba(201, 238, 235, 0.19);
+  }
   .login_form {
-      padding: 25px 15px;
-    .ant-card-bordered {
-      border-radius: 10px;
-    }
-    h4.ant-typography {
+    padding: 25px 15px;
+    h3.ant-typography {
       margin-bottom: 20px;
+      text-shadow: 2px 2px 4px #c9eeeb;
     }
     &_button {
       width: 100%;

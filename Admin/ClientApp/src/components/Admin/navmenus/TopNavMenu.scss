@@ -1,1 +1,32 @@
-﻿
+﻿@import "../../../styles/color";
+
+.ant-menu-light {
+    .ant-menu-item {
+        &:hover {
+            color: $leftMenuTextColor;
+        }
+    }
+    .ant-menu-submenu-title {
+        &:hover {
+            color: $leftMenuTextColor;
+        }
+    }
+}
+.ant-menu-horizontal {
+    &:not(.ant-menu-dark) {
+        > .ant-menu-submenu {
+            &:hover {
+                color: $leftMenuTextColor;
+                &::after {
+                    border-bottom: 2px solid $leftMenuTextColor;
+                }
+            }
+        }
+        > .ant-menu-submenu-active {
+            color: $leftMenuTextColor;
+            &::after {
+                border-bottom: 2px solid $leftMenuTextColor;
+            }
+        }
+    }
+}
