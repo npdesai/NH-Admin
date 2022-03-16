@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { Carousel } from "./carousel/Carousel";
+import { CarouselSlider } from "./carousel/CarouselSlider";
 import { Client } from "./client/Client";
 import { Team } from "./team/Team";
 
 export const Home: FC = () => {
   return (
     <div>
-      <Carousel></Carousel>
+      <CarouselSlider></CarouselSlider>
       <Team></Team>
       <Client></Client>
     </div>

@@ -25,6 +25,9 @@
       border-color: $buttonBorderColor;
       color: $buttonBorderColor;
     }
+    svg {
+      vertical-align: initial;
+    }
   }
   .ant-btn.ant-btn-default {
     border-color: $buttonBorderColor;

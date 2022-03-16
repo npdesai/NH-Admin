@@ -9,7 +9,7 @@
   @include checkbox;
   @include spinner;
   @include expandIcon;
-  
+
   .ant-layout {
     background: #ffffff !important;
   }
@@ -17,6 +17,11 @@
     background: #ffffff !important;
     border-bottom: 1px solid #b6b5b5;
     box-shadow: 0 5px 10px 0 rgba(201, 238, 235, 0.5);
+    .anticon {
+      svg {
+        vertical-align: initial;
+      }
+    }
   }
   .ant-layout-sider {
     border-right: 1px solid #52ada3;
