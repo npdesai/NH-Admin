@@ -1,3 +1,75 @@
-.team_container {
+@import "../../../styles/color";
+
+.team {
+  &_container {
     padding: 25px;
+  }
+  &_slider {
+    .slick-arrow {
+      background-color: #ffffff;
+      background-image: url("../../../images/arrow.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 50% auto;
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      filter: drop-shadow(0 2px 6px $inputFocusShadow);
+      z-index: 10;
+      border: 0;
+    }
+    .slick-prev {
+      top: 44%;
+      left: -10px;
+      transform: rotate(180deg);
+      &::before {
+        content: "";
+      }
+      &:hover {
+        background-color: #ffffff;
+        background-image: url("../../../images/arrow.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50% auto;
+      }
+    }
+    .slick-next {
+      top: 50.5%;
+      right: -10px;
+      &::before {
+        content: "";
+      }
+    }
+    .slick-slide {
+      padding: 0 10px;
+    }
+    .skeleton {
+      .ant-skeleton {
+        width: 100%;
+        .ant-skeleton-input {
+          height: 200px;
+          border-radius: 10px;
+          width: 100%;
+        }
+      }
+    }
+    &_card {
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid $inputBorderColor;
+      box-shadow: 0 4px 8px 0 $inputFocusShadow, 0 6px 20px 0 $inputFocusShadow;
+      &_img {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        margin: auto;
+      }
+      &_btn {
+        margin-top: 15px;
+      }
+    }
+    .ant-drawer-header {
+      padding: 10px 10px;
+    }
+  }
 }

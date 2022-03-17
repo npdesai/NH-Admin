@@ -62,6 +62,7 @@
 }
 
 .user_layout {
+  @include button;
   .ant-layout {
     background: #ffffff !important;
   }

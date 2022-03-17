@@ -32,7 +32,7 @@ export const CarouselSlider: FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="carousel_container">
       {carouselData.length > 0 ? (
         <Carousel controls={false}>
           {carouselData.map((ele: any, index) => (
