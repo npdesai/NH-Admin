@@ -123,7 +123,7 @@ export const Client: FC = () => {
                           >
                             <Col>
                               <img
-                                className="postcard_right_img"
+                                className="postcard_img"
                                 src={ele.image}
                               />
                             </Col>
