@@ -14,7 +14,7 @@ import Slider from "react-slick";
 import "../../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../../node_modules/slick-carousel/slick/slick-theme.css";
 import "./Team.scss";
-import {  EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
@@ -140,81 +140,87 @@ export const Team: FC = () => {
         </Row>
       </div>
       <div>
-        {!isLoading ? (
-          <Slider
-            {...settings}
-            className="team_slider"
-            beforeChange={(currentSlide, nextSlide) =>
-              onBeforeChange(currentSlide, nextSlide)
-            }
-          >
-            {teamData &&
-              teamData.map((teammember: any, index) => (
-                <Card
-                  className="team_slider_card overflow-hidden position-relative"
-                  key={index}
-                >
-                  <Row gutter={[16, 0]} justify="center" align="middle">
-                    <Col xs={24}>
-                      <Image
-                        preview={false}
-                        src={teammember.image}
-                        alt={teammember.name}
-                        className="team_slider_card_img"
-                      />
-                    </Col>
-                    <Col xs={24}>
-                      <Title level={3}>{teammember.name}</Title>
-                    </Col>
-                    <Col xs={24}>
-                      <Title level={4}>{teammember.title}</Title>
-                    </Col>
-                    <Col xs={24}>
-                      <Text ellipsis>{teammember.details}</Text>
-                    </Col>
-                    <Col xs={24} className="">
-                      <Button
-                        block
-                        className="team_slider_card_btn"
-                        onClick={() => showDrawer(index)}
-                        icon={<EyeOutlined />}
+        {teamData.length > 0 ? (
+          <>
+            {!isLoading ? (
+              <Slider
+                {...settings}
+                className="team_slider"
+                beforeChange={(currentSlide, nextSlide) =>
+                  onBeforeChange(currentSlide, nextSlide)
+                }
+              >
+                {teamData &&
+                  teamData.map((teammember: any, index) => (
+                    <Card
+                      className="team_slider_card overflow-hidden position-relative"
+                      key={index}
+                    >
+                      <Row gutter={[16, 0]} justify="center" align="middle">
+                        <Col xs={24}>
+                          <Image
+                            preview={false}
+                            src={teammember.image}
+                            alt={teammember.name}
+                            className="team_slider_card_img"
+                          />
+                        </Col>
+                        <Col xs={24}>
+                          <Title level={3}>{teammember.name}</Title>
+                        </Col>
+                        <Col xs={24}>
+                          <Title level={4}>{teammember.title}</Title>
+                        </Col>
+                        <Col xs={24}>
+                          <Text ellipsis>{teammember.details}</Text>
+                        </Col>
+                        <Col xs={24} className="">
+                          <Button
+                            block
+                            className="team_slider_card_btn"
+                            onClick={() => showDrawer(index)}
+                            icon={<EyeOutlined />}
+                          >
+                            View More
+                          </Button>
+                        </Col>
+                      </Row>
+                      <Drawer
+                        placement="right"
+                        closable={true}
+                        onClose={onclose}
+                        visible={index === visible}
+                        getContainer={false}
+                        width="100%"
+                        style={{ position: "absolute" }}
                       >
-                        View More
-                      </Button>
-                    </Col>
-                  </Row>
-                  <Drawer
-                    placement="right"
-                    closable={true}
-                    onClose={onclose}
-                    visible={index === visible}
-                    getContainer={false}
-                    width="100%"
-                    style={{ position: "absolute" }}
-                  >
-                    <p onClick={onclose} className="text-center">
-                      {" "}
-                      {teammember.details}
-                    </p>
-                  </Drawer>
-                </Card>
-              ))}
-          </Slider>
+                        <p onClick={onclose} className="text-center">
+                          {" "}
+                          {teammember.details}
+                        </p>
+                      </Drawer>
+                    </Card>
+                  ))}
+              </Slider>
+            ) : (
+              <Slider {...settings} className="team_slider">
+                <div className="skeleton">
+                  <Skeleton.Input active={true} />
+                </div>
+                <div className="skeleton">
+                  <Skeleton.Input active={true} />
+                </div>
+                <div className="skeleton">
+                  <Skeleton.Input active={true} />
+                </div>
+                <div className="skeleton">
+                  <Skeleton.Input active={true} />
+                </div>
+              </Slider>
+            )}
+          </>
         ) : (
-          <Slider {...settings} className="team_slider">
-            <div className="skeleton">
-              <Skeleton.Input active={true} />
-            </div>
-            <div className="skeleton">
-              <Skeleton.Input active={true} />
-            </div>
-            <div className="skeleton">
-              <Skeleton.Input active={true} />
-            </div>
-            <div className="skeleton">
-              <Skeleton.Input active={true} />
-            </div>
-          </Slider>
+          <Skeleton.Input active={true} />
         )}
       </div>
     </div>

@@ -1,3 +1,112 @@
+@import "../../../styles/color.scss";
+
 .client_container {
   padding: 25px;
+}
+
+.postcard {
+  flex-wrap: wrap;
+  display: flex;
+  border: 1px solid $inputBorderColor;
+  box-shadow: 0 4px 8px 0 $inputFocusShadow, 0 6px 20px 0 $inputFocusShadow;
+  border-radius: 10px;
+  margin: 0 0 2rem 0;
+  overflow: hidden;
+  position: relative;
+  color: #ffffff;
+  transition: all 0.2s ease-in;
+  &_title {
+    font-size: 1.75rem;
+  }
+  &_img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &_right_img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  &_text {
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+    h3 {
+      margin: 0;
+    }
+    &_lcname {
+      float: left;
+      margin-bottom: 10px;
+    }
+    &_locname {
+      float: right;
+      font-size: 1rem;
+      color: #000000;
+      font-style: italic;
+      font-weight: normal;
+    }
+  }
+  &_preview-txt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+    height: 100%;
+  }
+  &:hover {
+    background-color: #c9eeeb;
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    color: #fff;
+    transition: all 300ms linear;
+    transform: translateY(-7px) scale(1.01);
+  }
+  @media screen and (max-width: 769px) {
+    &_img_container {
+      order: -1;
+      margin-top: 10px;
+    }
+  }
+  @media screen and (max-width: 1024px) and (max-device-width: 1024px) {
+    &_img_container {
+      order: -1;
+      margin: 20px;
+    }
+  }
+}
+.imgcard {
+  animation: sliderleft 1s ease-in-out;
+}
+.cards {
+  animation: sliderright 1s ease-in-out;
+}
+@keyframes sliderleft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes sliderright {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.ant-skeleton-element {
+  width: 100%;
+
+  .ant-skeleton-input {
+    width: 100%;
+    height: 600px;
+  }
 }
