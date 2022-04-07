@@ -5,8 +5,6 @@
 }
 
 .postcard {
-  flex-wrap: wrap;
-  display: flex;
   border: 1px solid $inputBorderColor;
   box-shadow: 0 4px 8px 0 $inputFocusShadow, 0 6px 20px 0 $inputFocusShadow;
   border-radius: 10px;
@@ -19,8 +17,8 @@
     font-size: 1.75rem;
   }
   &_img {
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -64,8 +62,6 @@
     background-position: bottom;
     background-size: cover;
     color: #fff;
-    transition: all 300ms linear;
-    transform: translateY(-7px) scale(1.01);
   }
   @media screen and (max-width: 769px) {
     &_img_container {

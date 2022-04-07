@@ -1,5 +1,4 @@
 import {
-  DeleteOutlined,
   EditOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
@@ -7,7 +6,6 @@ import {
   Button,
   Checkbox,
   Col,
-  Input,
   Rate,
   Row,
   Table,
